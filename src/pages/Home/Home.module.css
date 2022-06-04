@@ -1,5 +1,51 @@
-.screen-one {
-  width: 100vw;
-  height: 150vh;
-  background: url("../../../public/assets/Group\ 55\ \(2\).png");
+.main_screen {
+  width: 100%;
+  height: 230vh;
+  background: url("../../styles//assets/Group\ 55\ \(2\).png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.screen_one {
+  width: 100%;
+  height: 70%;
+}
+.image_container {
+  width: 100%;
+  height: 60%;
+  display: flex;
+}
+.text_cont {
+  width: 45%;
+  height: 100%;
+  padding-top: 8em;
+  text-align: left;
+}
+.text_cont h1 {
+  padding-bottom: 12px;
+  font-size: 3em;
+}
+.text_cont h4 {
+  line-height: 1.6;
+}
+.button_cont {
+  width: 100%;
+  height: 30%;
+  display: flex;
+}
+.img_cont {
+  width: 55%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bookbox {
+  width: 100%;
+  height: 12%;
+  border-radius: 15px;
+  background-color: white;
+  position: relative;
+  top: -15%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }

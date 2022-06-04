@@ -72,22 +72,26 @@ function Layout({ children }) {
               <div className="d-flex" style={{ gap: "6px " }}>
                 <button
                   type="button"
-                  class="btn btn-outline-success p-0 py-0 px-2"
-                  style={{ border: "2px solid #28a745" }}
+                  class="btn  p-0 py-0 px-2"
+                  style={{ border: "2px solid #F6B100" }}
                 >
                   <li className="nav-item">
                     <Link
                       to="/login"
                       className="nav-link actived"
                       aria-current="page"
-                      style={{ color: "#222f3e", fontweight: "700" }}
+                      style={{ color: "#F6B100", fontweight: "700" }}
                     >
                       Signin
                     </Link>
                   </li>
                 </button>
 
-                <button type="button" class="btn btn-primary btn-sm py-0">
+                <button
+                  type="button"
+                  class="btn  btn-sm py-0"
+                  style={{ backgroundColor: "#2826AE" }}
+                >
                   <li className="nav-item">
                     {" "}
                     <Link
