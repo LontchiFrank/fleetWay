@@ -1,6 +1,6 @@
 .main_screen {
   width: 100%;
-  height: 230vh;
+  height: 270vh;
   background: url("../../styles//assets/Group\ 55\ \(2\).png");
   background-position: center;
   background-repeat: no-repeat;
@@ -12,7 +12,7 @@
 }
 .image_container {
   width: 100%;
-  height: 60%;
+  height: 52%;
   display: flex;
 }
 .text_cont {
@@ -46,6 +46,44 @@
   border-radius: 15px;
   background-color: white;
   position: relative;
-  top: -15%;
+  top: -13%;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.offer {
+  width: 100%;
+  height: 30%;
+}
+.heading {
+  text-align: center;
+  line-height: 4.5px;
+  letter-spacing: 22px;
+  color: #f6b100;
+  margin-bottom: 1em;
+}
+.cards_hold {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.cardthink {
+  width: 400px;
+  height: 380px;
+  border-radius: 12px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.specialOffer {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  justify-content: space-between;
+}
+.screen_two {
+  width: 100%;
+  height: 80vh;
+  background-color: #f0f0f0;
+}
+.hold_two {
+  width: 100%;
+  height: 100%;
+  display: flex;
 }
