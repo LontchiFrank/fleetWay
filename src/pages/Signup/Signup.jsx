@@ -1,9 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Signup.module.css";
 import track from "../../styles/assets/track.png";
-import { Row, Form, Col, Button } from "react-bootstrap";
+import { Row, Form, Col, Button, Alert } from "react-bootstrap";
+import app from "../../Firebase";
 
 function Signup() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    tel: "",
+    password: "",
+    password2: "",
+  });
+  const [error, setError] = useState(false);
+  const { name, email, tel, password, password2 } = formData;
+
+  const onchange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const onsubmit = (e) => {
+    e.preventDefault();
+    if (password !== password2) {
+      setError("Password do not Match");
+    }
+    app
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((data) => {
+        console.log({ message: `user${data.user.uid} signed up successfully` });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
     <div className={`${styles.main_sign}`}>
       <div style={{ marginLeft: "17em", marginRight: "17em" }}>
@@ -36,14 +66,27 @@ function Signup() {
                   paddingRight: "5em",
                 }}
               >
-                <Form>
+                <Form onSubmit={(e) => onsubmit(e)}>
+                  {error ? <Alert>{error}</Alert> : null}
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Name :</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Name" />
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter Name"
+                      name="name"
+                      value={name}
+                      onChange={(e) => onchange(e)}
+                    />
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
+                    <Form.Control
+                      type="email"
+                      placeholder="Enter email"
+                      name="email"
+                      value={email}
+                      onChange={(e) => onchange(e)}
+                    />
                     <Form.Text className="text-muted">
                       We'll never share your email with anyone else.
                     </Form.Text>
@@ -53,16 +96,31 @@ function Signup() {
                     <Form.Control
                       type="text"
                       placeholder="Enter Phone Number"
+                      name="tel"
+                      value={tel}
+                      onChange={(e) => onchange(e)}
                     />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password:</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Control
+                      type="password"
+                      placeholder="Password"
+                      name="password"
+                      value={password}
+                      onChange={(e) => onchange(e)}
+                    />
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Control
+                      type="password"
+                      placeholder="Password"
+                      name="password2"
+                      value={password2}
+                      onChange={(e) => onchange(e)}
+                    />
                   </Form.Group>
 
                   <Button
