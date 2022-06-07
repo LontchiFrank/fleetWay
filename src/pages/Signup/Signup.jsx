@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Signup.module.css";
+import firebase from "firebase";
 import track from "../../styles/assets/track.png";
 import { Row, Form, Col, Button, Alert } from "react-bootstrap";
+import { v4 as uuidv4 } from "uuid";
 import app from "../../Firebase";
+import { confirmAlert } from "react-confirm-alert";
 
 function Signup() {
+  const ref = firebase.firestore().collection("Users");
+
+  const [data, setData] = useState([]);
+  const [loader, setLoader] = useState(true);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,6 +22,17 @@ function Signup() {
   const [error, setError] = useState(false);
   const { name, email, tel, password, password2 } = formData;
 
+  const getData2 = () => {
+    ref.get().then((item) => {
+      const items = item.docs.map((doc) => doc.data());
+      setData(items);
+      setLoader(false);
+      console.log(data);
+    });
+  };
+  useEffect(() => {
+    getData2();
+  }, []);
   const onchange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -23,14 +41,36 @@ function Signup() {
     if (password !== password2) {
       setError("Password do not Match");
     }
+    const newDataObj = { name, tel, id: uuidv4() };
     app
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((data) => {
-        console.log({ message: `user${data.user.uid} signed up successfully` });
+        ref
+          .doc(newDataObj.id)
+          .set(newDataObj)
+          .then(() => {
+            console.log({
+              message: `user${data.user.uid} signed up successfully`,
+            });
+            confirmAlert({
+              title: "Sign Up Successfully",
+            });
+
+            //you can now save the user state globally and navigate to the next page
+          })
+          .catch((err) => {
+            console.error(err);
+          });
       })
       .catch((err) => {
         console.error(err);
+      });
+    ref
+      .doc()
+      .set(newDataObj)
+      .catch((err) => {
+        alert(err);
       });
   };
 
