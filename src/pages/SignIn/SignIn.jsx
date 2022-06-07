@@ -1,14 +1,35 @@
 import React, { useState } from "react";
 import styles from "./Signin.module.css";
+import { Link, useNavigate } from "react-router-dom";
 import track from "../../styles/assets/track.png";
 import { Row, Form, Col, Button } from "react-bootstrap";
+import app from "../../Firebase";
+import { myAlert } from "../../components/myAlert";
 
 function SignIn() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const { email, password } = formData;
-
+  const navigate = useNavigate();
   const onchange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const onsubmit = (e) => {
+    e.preventDefault();
+    app
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((data) => {
+        console.log({
+          message: `user${data.user.uid} signed up successfully`,
+        });
+        myAlert(data ? true : false);
+        navigate("/userdashboard");
+
+        //you can now save the user state globally and navigate to the next page
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
@@ -49,6 +70,7 @@ function SignIn() {
                         placeholder="Enter email"
                         name="email"
                         value={email}
+                        onChange={(e) => onchange(e)}
                       />
                       <Form.Text className="text-muted">
                         We'll never share your email with anyone else.
@@ -62,6 +84,7 @@ function SignIn() {
                         placeholder="Password"
                         name="password"
                         value={password}
+                        onChange={(e) => onchange(e)}
                       />
                     </Form.Group>
 

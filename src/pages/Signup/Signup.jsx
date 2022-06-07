@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Signup.module.css";
+import { Link, useNavigate } from "react-router-dom";
 import firebase from "firebase";
 import track from "../../styles/assets/track.png";
 import { Row, Form, Col, Button, Alert } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
 import app from "../../Firebase";
-import { confirmAlert } from "react-confirm-alert";
+import { myAlert } from "../../components/myAlert";
 
 function Signup() {
   const ref = firebase.firestore().collection("Users");
 
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(true);
+  const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,48 +32,53 @@ function Signup() {
       console.log(data);
     });
   };
+
+  // return () => {
+  //   clearTimeout(timeId);
+  // };
+
   useEffect(() => {
     getData2();
   }, []);
   const onchange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  let navigate = useNavigate();
   const onsubmit = (e) => {
     e.preventDefault();
     if (password !== password2) {
-      setError("Password do not Match");
-    }
-    const newDataObj = { name, tel, id: uuidv4() };
-    app
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((data) => {
-        ref
-          .doc(newDataObj.id)
-          .set(newDataObj)
-          .then(() => {
-            console.log({
-              message: `user${data.user.uid} signed up successfully`,
-            });
-            confirmAlert({
-              title: "Sign Up Successfully",
-            });
+      setTimeout(() => {
+        // After 3 seconds set the show value to false
+        setShow(true);
+        setError("Password do not Match");
+      }, 2000);
+    } else {
+      const newDataObj = { name, tel, id: uuidv4() };
+      app
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((data) => {
+          let d = ref
+            .doc(newDataObj.id)
+            .set(newDataObj)
+            .then(() => {
+              console.log({
+                message: `user${data.user.uid} signed up successfully`,
+              });
 
-            //you can now save the user state globally and navigate to the next page
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-    ref
-      .doc()
-      .set(newDataObj)
-      .catch((err) => {
-        alert(err);
-      });
+              myAlert(d ? true : false);
+              navigate("/userdashboard");
+
+              //you can now save the user state globally and navigate to the next page
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   };
 
   return (
@@ -107,7 +114,7 @@ function Signup() {
                 }}
               >
                 <Form onSubmit={(e) => onsubmit(e)}>
-                  {error ? <Alert>{error}</Alert> : null}
+                  {show ? <Alert variant="danger">{error}</Alert> : null}
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Name :</Form.Label>
                     <Form.Control
@@ -185,5 +192,4 @@ function Signup() {
     </div>
   );
 }
-
 export default Signup;

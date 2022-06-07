@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Signup from "./pages/Signup/Signup";
 import SignIn from "./pages/SignIn/SignIn";
 import Clive from "./components";
+import UserDashboard from "./pages/UserDashboard/UserDashboard";
 
 function ScrollToTop({ children }) {
   const { pathname } = useLocation();
@@ -23,6 +24,7 @@ function Navigation() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/signin" element={<SignIn />} />
+          <Route exact path="/userdashboard" element={<UserDashboard />} />
         </Routes>
         {/* <Offline>
         <Network />
