@@ -1,0 +1,45 @@
+.box {
+  width: 100%;
+  height: 100vh;
+}
+.hero {
+  width: 100%;
+  height: 70%;
+  /* background: linear-gradient(
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.6)
+    ),
+    url("../../styles/assets/car.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transform: rotateY(180deg); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hold_box {
+  width: 100%;
+  height: 90%;
+  display: flex;
+}
+.img_box {
+  width: 70%;
+  height: 100%;
+}
+.sel_box {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* .sel1_box {
+  width: 100%;
+  height: 100%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  position: relative;
+  top: 15%;
+  left: -25%;
+} */

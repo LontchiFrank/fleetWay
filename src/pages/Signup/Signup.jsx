@@ -5,8 +5,11 @@ import firebase from "firebase";
 import track from "../../styles/assets/track.png";
 import { Row, Form, Col, Button, Alert } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
+// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import app from "../../Firebase";
 import { myAlert } from "../../components/myAlert";
+import { getUser } from "../../redux/actions/userAction";
 
 function Signup() {
   const ref = firebase.firestore().collection("Users");
@@ -44,6 +47,7 @@ function Signup() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   let navigate = useNavigate();
+  let dispatch = useDispatch();
   const onsubmit = (e) => {
     e.preventDefault();
     if (password !== password2) {
@@ -67,6 +71,7 @@ function Signup() {
               });
 
               myAlert(d ? true : false);
+              dispatch(getUser(newDataObj));
               navigate("/userdashboard");
 
               //you can now save the user state globally and navigate to the next page
