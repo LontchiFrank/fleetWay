@@ -69,7 +69,7 @@ function UserDashboard() {
                 {/* <img src={} style={{ width: "100%", height: "90%" }} /> */}
               </div>
 
-              {/* <div className={`${styles.sel_box}`}> </div> */}
+              <div className={`${styles.sel_box}`}> </div>
             </div>
           </div>
         </div>

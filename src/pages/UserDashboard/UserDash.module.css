@@ -57,3 +57,31 @@
   position: relative;
   top: -40%;
 }
+
+@media (min-width: 768px) and (max-width: 1091.98px) {
+  .hold_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .img_box {
+    width: 100%;
+  }
+  .sel_box {
+    display: none;
+  }
+}
+
+@media (min-width: 332.98px) and (max-width: 767.98px) {
+  .hold_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .img_box {
+    width: 100%;
+  }
+  .sel_box {
+    display: none;
+  }
+}
