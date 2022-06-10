@@ -1,10 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import UserLayout from "../../components/Layout/UserLayout";
 import styles from "./UserDash.module.css";
-import phone from "../../styles/assets/part.png";
-import { Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import brand from "../../styles/assets/brand.jpg";
+import { Button, Card } from "react-bootstrap";
+import { Phone, ThreeDotsVertical, Wifi } from "react-bootstrap-icons";
+import firebase from "firebase";
+import { getDrivers } from "../../redux/actions/driverAction";
 
 function UserDashboard() {
+  const [back, setBack] = useState(true);
+  const [back1, setBack1] = useState(false);
+  const [data, setData] = useState([]);
+  const toggle = () => {
+    setBack(!back);
+  };
+  const dispatch = useDispatch();
+
+  const driver = useSelector(({ driver }) => driver?.driver);
+  // console.log(driver);
+  const ref = firebase.firestore().collection("Drivers");
+
+  ref.get().then((item) => {
+    const items = item.docs.map((doc) => doc.data());
+    setData(items);
+  });
+
+  useEffect(() => {
+    dispatch(getDrivers(data));
+    console.log(data);
+  }, []);
+
   return (
     <UserLayout>
       <div className={`${styles.box}`}>
@@ -50,7 +76,131 @@ function UserDashboard() {
       </div>
       <div className={`${styles.hero1}`}>
         <div className="container" style={{ width: "100%", height: "100%" }}>
-          <div className={`${styles.box2}`}></div>
+          <div className={`${styles.box2}`}>
+            <div
+              style={{
+                width: "100%",
+                // height: "10%",
+                borderBottom: "1px solid #ccc",
+              }}
+            >
+              <div style={{ width: "100%", height: "25%", display: "flex" }}>
+                <div
+                  style={{
+                    width: "50%",
+                    height: "100%",
+                    color: "#000",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    // background: back ? "white" : "#d5d5ff",
+                    borderBottom: back ? "4px solid #F6B100" : "none",
+                  }}
+                  onClick={() => toggle()}
+                >
+                  <div className="d-flex  pt-2 ">
+                    <h5 className="pt-2">Trip Package</h5>
+                    <Phone style={{ fontSize: "22px", marginTop: "10px" }} />
+                  </div>
+                </div>
+                <div
+                  style={{
+                    width: "50%",
+                    height: "100%",
+                    color: "#000",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    // background: !back ? "white" : "#d5d5ff",
+                    borderBottom: !back ? "4px solid #F6B100" : "none",
+                  }}
+                  onClick={() => toggle()}
+                >
+                  <div className="d-flex  pt-2 ">
+                    <h5 className="pt-2">Trip Reservation</h5>
+                    <Phone style={{ fontSize: "22px", marginTop: "10px" }} />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="d-flex  p-4 flex-column">
+              <h3>Drivers all around you</h3>
+              <div className="d-flex justify-content-center   flex-wrap p-4 ">
+                {data.map((el, key) => (
+                  <Card
+                    key={key}
+                    border="light"
+                    style={{
+                      marginLeft: "1em",
+                      marginTop: "2em",
+                      width: "18rem",
+                      boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                    }}
+                    className="col-md-12 col-sm-12"
+                  >
+                    <Card.Header className="d-flex">
+                      {/* <p>{el.Name} </p> */}
+                      <div
+                        className="d-flex justify-content-center align-items-center"
+                        style={{ width: "95%", height: "100%" }}
+                      >
+                        <div
+                          className="icon-profile"
+                          style={{
+                            width: "70px",
+                            height: "65px",
+                            borderRadius: "50%",
+                            background: "green",
+                          }}
+                        >
+                          <img
+                            src={brand}
+                            alt=""
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              borderRadius: "50%",
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <div className="" style={{ width: "5%", height: "100%" }}>
+                        <ThreeDotsVertical style={{ fontSize: "22px" }} />
+                      </div>
+                    </Card.Header>
+                    <Card.Body>
+                      <Card.Title className="fw-bold ">
+                        {" "}
+                        <p className="text-center fw-normal">{el.Name} </p>
+                      </Card.Title>
+                      <Card.Text className="d-flex flex-column justify-content-center align-items-center">
+                        <Wifi
+                          style={{
+                            fontSize: "19px",
+                            textAlign: "center",
+                            color: "green",
+                          }}
+                        />
+                        <p>Online</p>
+                      </Card.Text>
+                    </Card.Body>
+                    <div className="px-4 pb-4 d-flex flex-column justify-content-center align-items-center">
+                      <Button
+                        variant="warning"
+                        className="col-md-12"
+                        style={{ color: "white" }}
+                      >
+                        {" "}
+                        Hire
+                      </Button>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       {/* <div className={`${styles.box3}`}></div> */}
