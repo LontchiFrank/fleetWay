@@ -87,3 +87,32 @@
   height: 100%;
   display: flex;
 }
+
+@media (min-width: 768px) and (max-width: 1091.98px) {
+}
+
+@media (min-width: 332.98px) and (max-width: 867.98px) {
+  .image_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .text_cont {
+    width: 100%;
+  }
+  .img_cont {
+    display: none;
+  }
+  .img1_cont {
+    width: 100%;
+    height: 30%;
+  }
+
+  .cards_hold {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}
