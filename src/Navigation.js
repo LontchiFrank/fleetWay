@@ -5,6 +5,8 @@ import Signup from "./pages/Signup/Signup";
 import SignIn from "./pages/SignIn/SignIn";
 import Clive from "./components";
 import UserDashboard from "./pages/UserDashboard/UserDashboard";
+import DriverSignup from "./pages/DriverSignup/DriverSignup";
+import GeoMap from "./pages/GeoMap/GeoMap";
 
 function ScrollToTop({ children }) {
   const { pathname } = useLocation();
@@ -25,6 +27,8 @@ function Navigation() {
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/signin" element={<SignIn />} />
           <Route exact path="/userdashboard" element={<UserDashboard />} />
+          <Route exact path="/signup-driver" element={<DriverSignup />} />
+          <Route exact path="/geo-map" element={<GeoMap />} />
         </Routes>
         {/* <Offline>
         <Network />
