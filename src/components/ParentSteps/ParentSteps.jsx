@@ -1,14 +1,10 @@
 import React, { useState } from "react";
+import FirstStep from "../FirstStep/FirstStep";
 import FourthStep from "../FourthStep/FourthStep";
 import SecondStep from "../SecondStep/SecondStep";
 import ThirdStep from "../ThirdStep/ThirdStep";
 
-function ParentSteps() {
-  const [change, setChange] = useState(1);
-
-  const incement = () => {
-    change = change + 1;
-  };
+function ParentSteps({ change }) {
   switch (change) {
     case 1:
       return <FirstStep />;

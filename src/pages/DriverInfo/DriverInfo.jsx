@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
+import { ArrowLeft, ArrowRight } from "react-bootstrap-icons";
 import FirstStep from "../../components/FirstStep/FirstStep";
 import Layout from "../../components/Layout/Layout";
 import ParentSteps from "../../components/ParentSteps/ParentSteps";
 import styles from "./DriverInfo.module.css";
 
 function DriverInfo() {
+  const [change, setChange] = useState(1);
+
+  const incement = () => {
+    setChange(change + 1);
+  };
+  const decement = () => {
+    setChange(change - 1);
+  };
   return (
     <Layout>
       <div className="container">
@@ -64,7 +73,32 @@ function DriverInfo() {
               <div className="d-flex justify-content-right">
                 <Button variant="warning">Next</Button>
               </div> */}
-              <ParentSteps />
+              <ParentSteps change={change} />
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-around",
+                }}
+                className=" p-4 "
+              >
+                {change > 1 ? (
+                  <Button
+                    variant="info"
+                    style={{ color: "white" }}
+                    onClick={() => decement()}
+                  >
+                    <ArrowLeft style={{ fontSize: "15px" }} /> Previous Step
+                  </Button>
+                ) : null}
+                <Button
+                  variant="warning"
+                  style={{ color: "white" }}
+                  onClick={() => incement()}
+                >
+                  Next Step <ArrowRight style={{ fontSize: "15px" }} />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
