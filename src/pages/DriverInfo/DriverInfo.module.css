@@ -1,16 +1,69 @@
 .form_box {
   width: 100%;
   height: 80%;
+  display: flex;
   border-radius: 22px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 .progres {
   width: 30%;
   height: 100%;
-  background-color: #ffbe5e;
+  background-color: #304767;
   border-radius: 22px 0px 0px 22px;
 }
 .form_part {
   width: 70%;
   height: 100%;
+}
+
+.progress_bar {
+  list-style: none;
+  /*color:#fff;*/
+  margin-top: 30px;
+  font-size: 13px;
+  font-weight: 700;
+  counter-reset: container 0;
+}
+.progress_bar li {
+  position: relative;
+  margin-left: 40px;
+  margin-top: 60px;
+  counter-increment: container 1;
+  color: #fff;
+}
+.progress_bar li::before {
+  content: counter(container);
+  line-height: 25px;
+  /* text-align: center; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 55px;
+  width: 55px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  left: -40px;
+  top: -10px;
+  z-index: 10;
+  background-color: #304767;
+}
+
+.progress_bar li::after {
+  content: "";
+  position: absolute;
+  height: 110px;
+  width: 2px;
+  background-color: #fff;
+  z-index: 1;
+  left: -17px;
+  top: -70px;
+}
+
+.progress_bar li.active::after {
+  background-color: #fff;
+}
+
+.progress_bar li:first-child:after {
+  display: none;
 }
