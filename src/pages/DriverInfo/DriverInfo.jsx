@@ -41,7 +41,7 @@ function DriverInfo() {
                   style={{ color: "white", marginLeft: "1.4em" }}
                 >
                   {" "}
-                  Step 1
+                  Step {change}
                 </h2>
                 <p
                   className=""
@@ -58,10 +58,10 @@ function DriverInfo() {
                   Personal Information
                 </li>
                 <li style={{ paddingLeft: "18px", fontSize: "18px" }}>
-                  Education
+                  Driver's Information
                 </li>
                 <li style={{ paddingLeft: "18px", fontSize: "18px" }}>
-                  Work Experience
+                  Car's Information
                 </li>
                 <li style={{ paddingLeft: "18px", fontSize: "18px" }}>
                   User Photo
