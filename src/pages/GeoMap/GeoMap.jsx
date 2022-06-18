@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import GoogleMapReact from "google-map-react";
 
 const init_location = {
-  lng: 4.2452626,
-  lat: 9.7386367,
+  lng: 4.150781,
+  lat: 9.292952,
 };
 
 function GeoMap() {
@@ -39,9 +39,7 @@ export default GeoMap;
 
 const Map = ({ location, zoomLevel }) => (
   <div className="map">
-    <h2 className="map-h2">Come Visit Us At Our Campus</h2>
-
-    <div style={{ height: "50vh" }}>
+    <div style={{ height: "20vh" }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: "AIzaSyAr4-SnQMdWpy81BAjK3Y0536uiO17l1oQ" }}
         defaultCenter={location}

@@ -3,7 +3,7 @@ import UserLayout from "../../components/Layout/UserLayout";
 import styles from "./UserDash.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import brand from "../../styles/assets/brand.jpg";
-import { Button, Card, Form, Row, Col } from "react-bootstrap";
+import { Button, Card, Form, Row, Col, Modal } from "react-bootstrap";
 import {
   GeoAltFill,
   Phone,
@@ -12,10 +12,128 @@ import {
 } from "react-bootstrap-icons";
 import firebase from "firebase";
 import { getDrivers } from "../../redux/actions/driverAction";
+import GeoMap from "../GeoMap/GeoMap";
+
+function MyVerticallyCenteredModal({ show, setModalShow }) {
+  const [back, setBack] = useState(true);
+  const toggle = () => {
+    setBack(!back);
+  };
+  return (
+    <Modal
+      show={show}
+      // {...props}
+      // show={show}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Modal heading
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <h4>Centered Modal</h4>
+        <GeoMap />
+        <div
+          style={{
+            width: "100%",
+            // height: "10%",
+            borderBottom: "1px solid #ccc",
+          }}
+        >
+          <div style={{ width: "100%", height: "25%", display: "flex" }}>
+            <div
+              style={{
+                width: "50%",
+                height: "100%",
+                color: "#000",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                cursor: "pointer",
+                // background: back ? "white" : "#d5d5ff",
+                borderBottom: back ? "4px solid #F6B100" : "none",
+              }}
+              onClick={() => toggle()}
+            >
+              <div className="d-flex  pt-2 ">
+                <h5 className="pt-2">Take A lyf</h5>
+                <GeoAltFill style={{ fontSize: "22px", marginTop: "10px" }} />
+              </div>
+            </div>
+            <div
+              style={{
+                width: "50%",
+                height: "100%",
+                color: "#000",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                cursor: "pointer",
+                // background: !back ? "white" : "#d5d5ff",
+                borderBottom: !back ? "4px solid #F6B100" : "none",
+              }}
+              onClick={() => toggle()}
+            >
+              <div className="d-flex  pt-2 ">
+                <h5 className="pt-2">All Drivers</h5>
+                <Phone style={{ fontSize: "22px", marginTop: "10px" }} />
+              </div>
+            </div>
+          </div>
+          {back ? (
+            <div className="p-4">
+              <Form>
+                <Row>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Destination:</Form.Label>
+                    <Form.Control type="text" placeholder="Enter Destination" />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Location:</Form.Label>
+                    <Form.Control type="text" placeholder="Enter Location" />
+                    <Form.Text className="text-muted"></Form.Text>
+                  </Form.Group>
+                </Row>
+                <Row>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Price:</Form.Label>
+                    <Form.Control type="text" placeholder="Enter Price" />
+                    <Form.Text className="text-muted"></Form.Text>
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label>Number of Seat</Form.Label>
+                    <Form.Select>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </Form.Select>
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Location:</Form.Label>
+                    <Form.Control type="text" placeholder="Enter Location" />
+                  </Form.Group>
+                </Row>
+              </Form>
+            </div>
+          ) : null}
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={() => setModalShow(false)}>Close</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
 
 function UserDashboard() {
+  const [modalShow, setModalShow] = useState(false);
   const [back, setBack] = useState(true);
-  const [back1, setBack1] = useState(false);
   const [data, setData] = useState([]);
   const toggle = () => {
     setBack(!back);
@@ -36,8 +154,16 @@ function UserDashboard() {
     console.log(data);
   }, []);
 
+  useEffect(() => {
+    console.log(modalShow, "modalShow");
+  }, [modalShow]);
   return (
     <UserLayout>
+      <MyVerticallyCenteredModal
+        show={modalShow}
+        setModalShow={setModalShow}
+        // onHide={() => setModalShow(false)}
+      />
       <div className={`${styles.box}`}>
         <div className={`${styles.hero}`}>
           <div className="container" style={{ width: "100%", height: "100%" }}>
@@ -238,6 +364,7 @@ function UserDashboard() {
                           variant="warning"
                           className="col-md-12"
                           style={{ color: "white" }}
+                          onClick={() => setModalShow(true)}
                         >
                           {" "}
                           Hire
