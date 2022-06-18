@@ -14,11 +14,21 @@ import firebase from "firebase";
 import { getDrivers } from "../../redux/actions/driverAction";
 import GeoMap from "../GeoMap/GeoMap";
 
-function MyVerticallyCenteredModal({ show, setModalShow }) {
+function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
   const [back, setBack] = useState(true);
   const toggle = () => {
     setBack(!back);
   };
+  // useEffect(() => {
+  //   ref.get().then((item) => {
+  //     const items = item.docs.map((doc) => doc.data());
+  //     setData(items);
+  //   });
+
+  //   dispatch(getDrivers(data));
+  //   console.log(data);
+  // }, []);
+
   return (
     <Modal
       show={show}
@@ -30,12 +40,12 @@ function MyVerticallyCenteredModal({ show, setModalShow }) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
+          Hire this Car
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Centered Modal</h4>
-        <GeoMap />
+        <h4>Map</h4>
+        <GeoMap latitudes={lati} longitudes={long} />
         <div
           style={{
             width: "100%",
@@ -59,7 +69,7 @@ function MyVerticallyCenteredModal({ show, setModalShow }) {
               onClick={() => toggle()}
             >
               <div className="d-flex  pt-2 ">
-                <h5 className="pt-2">Take A lyf</h5>
+                <h5 className="pt-2">Take A lyft</h5>
                 <GeoAltFill style={{ fontSize: "22px", marginTop: "10px" }} />
               </div>
             </div>
@@ -78,7 +88,7 @@ function MyVerticallyCenteredModal({ show, setModalShow }) {
               onClick={() => toggle()}
             >
               <div className="d-flex  pt-2 ">
-                <h5 className="pt-2">All Drivers</h5>
+                <h5 className="pt-2">Book Car</h5>
                 <Phone style={{ fontSize: "22px", marginTop: "10px" }} />
               </div>
             </div>
@@ -87,33 +97,46 @@ function MyVerticallyCenteredModal({ show, setModalShow }) {
             <div className="p-4">
               <Form>
                 <Row>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Destination:</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Destination" />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Location:</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Location" />
-                    <Form.Text className="text-muted"></Form.Text>
-                  </Form.Group>
+                  <Col md="6">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Destination:</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter Destination"
+                      />
+                    </Form.Group>
+                  </Col>
+
+                  <Col md="6">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Location:</Form.Label>
+                      <Form.Control type="text" placeholder="Enter Location" />
+                      <Form.Text className="text-muted"></Form.Text>
+                    </Form.Group>
+                  </Col>
                 </Row>
                 <Row>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Price:</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Price" />
-                    <Form.Text className="text-muted"></Form.Text>
-                  </Form.Group>
+                  <Col md="6">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Price:</Form.Label>
+                      <Form.Control type="text" placeholder="Enter Price" />
+                      <Form.Text className="text-muted"></Form.Text>
+                    </Form.Group>
+                  </Col>
 
-                  <Form.Group className="mb-3">
-                    <Form.Label>Number of Seat</Form.Label>
-                    <Form.Select>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </Form.Select>
-                  </Form.Group>
+                  <Col md="6">
+                    <Form.Group className="mb-3">
+                      <Form.Label>Number of Seat</Form.Label>
+                      <Form.Select>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </Form.Select>
+                    </Form.Group>
+                  </Col>
+
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Location:</Form.Label>
                     <Form.Control type="text" placeholder="Enter Location" />
@@ -121,11 +144,67 @@ function MyVerticallyCenteredModal({ show, setModalShow }) {
                 </Row>
               </Form>
             </div>
-          ) : null}
+          ) : (
+            <div className="p-4">
+              <Form>
+                <Row>
+                  <Col md="6">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Destination:</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter Destination"
+                      />
+                    </Form.Group>
+                  </Col>
+
+                  <Col md="6">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Location:</Form.Label>
+                      <Form.Control type="text" placeholder="Enter Location" />
+                      <Form.Text className="text-muted"></Form.Text>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md="6">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Price:</Form.Label>
+                      <Form.Control type="text" placeholder="Enter Price" />
+                      <Form.Text className="text-muted"></Form.Text>
+                    </Form.Group>
+                  </Col>
+
+                  <Col md="6">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Date:</Form.Label>
+                      <Form.Control
+                        type="date"
+                        placeholder="Enter Date of Departure"
+                      />
+                    </Form.Group>
+                  </Col>
+
+                  <Col md="6">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Time:</Form.Label>
+                      <Form.Control
+                        type="time"
+                        placeholder="Enter Time of Departure"
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </Form>
+            </div>
+          )}
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => setModalShow(false)}>Close</Button>
+        <Button variant="warning" onClick={() => setModalShow(false)}>
+          Hire Taxi
+        </Button>
+        <Button onClick={() => setModalShow(false)}>Cancel</Button>
       </Modal.Footer>
     </Modal>
   );
@@ -133,6 +212,8 @@ function MyVerticallyCenteredModal({ show, setModalShow }) {
 
 function UserDashboard() {
   const [modalShow, setModalShow] = useState(false);
+  const [longitude, setLongitude] = useState("");
+  const [latitude, setLatitude] = useState("");
   const [back, setBack] = useState(true);
   const [data, setData] = useState([]);
   const toggle = () => {
@@ -154,14 +235,16 @@ function UserDashboard() {
     console.log(data);
   }, []);
 
-  useEffect(() => {
-    console.log(modalShow, "modalShow");
-  }, [modalShow]);
+  // useEffect(() => {
+  //   console.log(longitude, "modalShow");
+  // }, [longitude]);
   return (
     <UserLayout>
       <MyVerticallyCenteredModal
         show={modalShow}
         setModalShow={setModalShow}
+        lati={latitude}
+        long={longitude}
         // onHide={() => setModalShow(false)}
       />
       <div className={`${styles.box}`}>
@@ -364,7 +447,11 @@ function UserDashboard() {
                           variant="warning"
                           className="col-md-12"
                           style={{ color: "white" }}
-                          onClick={() => setModalShow(true)}
+                          onClick={() => {
+                            setModalShow(true);
+                            setLongitude(el.lng);
+                            setLatitude(el.lat);
+                          }}
                         >
                           {" "}
                           Hire

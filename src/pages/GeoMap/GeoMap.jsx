@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import GoogleMapReact from "google-map-react";
 
 const init_location = {
-  lng: 4.150781,
-  lat: 9.292952,
+  lng: 9.263224,
+  lat: 4.155966,
 };
 
-function GeoMap() {
+function GeoMap({ latitudes, longitudes }) {
+  console.log(longitudes, latitudes);
   const [location, setlocation] = useState(init_location);
 
-  const zoomLevel = 3;
+  const zoomLevel = 15;
 
   //   get geolocation
   function getGeolocation() {
@@ -30,24 +31,30 @@ function GeoMap() {
   }, []);
   return (
     <div>
-      <Map location={location} zoomLevel={zoomLevel}></Map>
+      <Map
+        location={location}
+        zoomLevel={zoomLevel}
+        long={longitudes}
+        lati={latitudes}
+      ></Map>
     </div>
   );
 }
 
 export default GeoMap;
 
-const Map = ({ location, zoomLevel }) => (
+const Map = ({ location, zoomLevel, long, lati }) => (
   <div className="map">
-    <div style={{ height: "20vh" }}>
+    <div style={{ height: "35vh" }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: "AIzaSyAr4-SnQMdWpy81BAjK3Y0536uiO17l1oQ" }}
+        center={location}
         defaultCenter={location}
         defaultZoom={zoomLevel}
       >
         <LocationPin
-          lat={location.lat - 0.1}
-          lng={location.lng - 0.1}
+          lat={lati}
+          lng={long}
           img={
             "https://d2gg9evh47fn9z.cloudfront.net/1600px_COLOURBOX7963927.jpg"
           }
