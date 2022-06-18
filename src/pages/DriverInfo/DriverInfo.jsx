@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-import { ArrowLeft, ArrowRight } from "react-bootstrap-icons";
+import { ArrowLeft, ArrowRight, Check } from "react-bootstrap-icons";
 import FirstStep from "../../components/FirstStep/FirstStep";
 import Layout from "../../components/Layout/Layout";
+import UserLayout from "../../components/Layout/UserLayout";
 import ParentSteps from "../../components/ParentSteps/ParentSteps";
 import styles from "./DriverInfo.module.css";
 
@@ -16,7 +17,7 @@ function DriverInfo() {
     setChange(change - 1);
   };
   return (
-    <Layout>
+    <UserLayout>
       <div className="container">
         <h2> Driver's information</h2>
         <div
@@ -84,26 +85,33 @@ function DriverInfo() {
               >
                 {change > 1 ? (
                   <Button
-                    variant="info"
+                    variant="secondary"
                     style={{ color: "white" }}
                     onClick={() => decement()}
                   >
                     <ArrowLeft style={{ fontSize: "15px" }} /> Previous Step
                   </Button>
                 ) : null}
-                <Button
-                  variant="warning"
-                  style={{ color: "white" }}
-                  onClick={() => incement()}
-                >
-                  Next Step <ArrowRight style={{ fontSize: "15px" }} />
-                </Button>
+                {change >= 1 && change < 4 ? (
+                  <Button
+                    variant="warning"
+                    style={{ color: "white" }}
+                    onClick={() => incement()}
+                  >
+                    Next Step <ArrowRight style={{ fontSize: "15px" }} />
+                  </Button>
+                ) : (
+                  <Button variant="success" style={{ color: "white" }}>
+                    Submit
+                    <Check style={{ fontSize: "15px" }} />
+                  </Button>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
-    </Layout>
+    </UserLayout>
   );
 }
 
