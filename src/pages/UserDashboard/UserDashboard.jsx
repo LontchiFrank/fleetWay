@@ -203,7 +203,12 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="warning" onClick={() => setModalShow(false)}>
-          Hire Taxi
+          <Link
+            to="/trackingpay"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            Hire Taxi
+          </Link>
         </Button>
         <Button onClick={() => setModalShow(false)}>Cancel</Button>
       </Modal.Footer>
