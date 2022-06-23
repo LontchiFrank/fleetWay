@@ -13,6 +13,7 @@ import {
 import firebase from "firebase";
 import { getDrivers } from "../../redux/actions/driverAction";
 import GeoMap from "../GeoMap/GeoMap";
+import { Link } from "react-router-dom";
 
 function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
   const [back, setBack] = useState(true);
@@ -275,7 +276,12 @@ function UserDashboard() {
                           border: "none",
                         }}
                       >
-                        Sign Up As Driver
+                        <Link
+                          to="/signup-driver"
+                          style={{ textDecoration: "none", color: "white" }}
+                        >
+                          Sign Up As Driver
+                        </Link>
                       </Button>
                     </div>
                   </div>
