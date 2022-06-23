@@ -54,6 +54,10 @@ function TrackPay() {
             </Row>
           </Form>
         </div>
+        {/* <div className="Ratings">
+          <h4>Rate this Driver</h4>
+          
+        </div> */}
         <div>
           <h4>ChoosePayment Method:</h4>
 
