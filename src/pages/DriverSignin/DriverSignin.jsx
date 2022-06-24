@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import app from "../../Firebase";
 import { myAlert } from "../../components/myAlert";
 import { getUser } from "../../redux/actions/userAction";
+import { getDrivers } from "../../redux/actions/driverAction";
 
 function DriverSignin() {
   const ref = firebase.firestore().collection("Drivers");
@@ -48,40 +49,20 @@ function DriverSignin() {
   let dispatch = useDispatch();
   const onsubmit = (e) => {
     e.preventDefault();
-    if (password !== password2) {
-      setTimeout(() => {
-        // After 3 seconds set the show value to false
-        setShow(true);
-        setError("Password do not Match");
-      }, 2000);
-    } else {
-      const newDataObj = { name, tel, id: uuidv4() };
-      app
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then((data) => {
-          let d = ref
-            .doc(newDataObj.id)
-            .set(newDataObj)
-            .then(() => {
-              console.log({
-                message: `user${data.user.uid} signed up successfully`,
-              });
+    app
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((data) => {
+        myAlert(true);
+        dispatch(getDrivers(data));
+        navigate("/driverInfo");
 
-              myAlert(d ? true : false);
-              dispatch(getUser(newDataObj));
-              navigate("/userdashboard");
-
-              //you can now save the user state globally and navigate to the next page
-            })
-            .catch((err) => {
-              console.error(err);
-            });
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
+        //you can now save the user state globally and navigate to the next page
+      })
+      .catch((err) => {
+        console.error(err);
+        myAlert(false);
+      });
   };
   return (
     <div>
