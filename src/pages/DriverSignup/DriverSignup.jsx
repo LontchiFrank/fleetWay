@@ -55,19 +55,18 @@ function DriverSignup() {
         setError("Password do not Match");
       }, 2000);
     } else {
-      const newDataObj = { name, tel, id: uuidv4() };
+      const newDataObj = { name, tel, id: uuidv4(), email };
       app
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then((data) => {
           let d = ref
-            .doc(newDataObj.id)
+            .doc(email)
             .set(newDataObj)
             .then(() => {
               console.log({
                 message: `user${data.user.uid} signed up successfully`,
               });
-
               myAlert(d ? true : false);
               dispatch(getUser(newDataObj));
               navigate("/userdashboard");
@@ -75,11 +74,11 @@ function DriverSignup() {
               //you can now save the user state globally and navigate to the next page
             })
             .catch((err) => {
-              console.error(err);
+              setError(err.message);
             });
         })
         .catch((err) => {
-          console.error(err);
+          setError(err.message);
         });
     }
   };
@@ -174,7 +173,6 @@ function DriverSignup() {
                         onChange={(e) => onchange(e)}
                       />
                     </Form.Group>
-
                     <Button
                       style={{
                         width: "100%",

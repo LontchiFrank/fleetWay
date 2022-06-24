@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import GoogleMapReact from "google-map-react";
+import app from "../../Firebase";
+import "./GeoMap.css";
 
 const init_location = {
   lng: 9.263224,
@@ -7,35 +9,51 @@ const init_location = {
 };
 
 function GeoMap({ latitudes, longitudes }) {
-  console.log(longitudes, latitudes);
   const [location, setlocation] = useState(init_location);
+  const [driver, setdriver] = useState(init_location);
+
+  useEffect(() => {
+    move();
+  }, []);
 
   const zoomLevel = 15;
-
-  //   get geolocation
-  function getGeolocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.watchPosition((result) => {
-        console.log(result);
-        setlocation({
-          address: "",
-          lat: result.coords.latitude,
-          lng: result.coords.longitude,
-        });
+  async function move() {
+    for (let i = 0; i < 1000; i++) {
+      const val = await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve({
+            lng: 9.263224 + i * 0.00001,
+            lat: 4.155966 + i * 0.00001,
+          });
+        }, 1000);
       });
+      setdriver(val);
     }
   }
 
-  useEffect(() => {
-    getGeolocation();
-  }, []);
+  async function uploadFile(ev) {
+    const file = ev.target.files[0];
+    const storageRef = app.storage().ref("images/");
+    try {
+      console.log("loading");
+      await storageRef.child(file.name).put(file);
+      console.log("uploaded");
+      const url = await storageRef.child(file.name).getDownloadURL();
+      console.log(url);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <div>
+      <input onChange={uploadFile} type={"file"}></input>
       <Map
         location={location}
         zoomLevel={zoomLevel}
         long={longitudes}
         lati={latitudes}
+        driver={driver}
       ></Map>
     </div>
   );
@@ -43,7 +61,7 @@ function GeoMap({ latitudes, longitudes }) {
 
 export default GeoMap;
 
-const Map = ({ location, zoomLevel, long, lati }) => (
+const Map = ({ location, zoomLevel, long, lati, driver }) => (
   <div className="map">
     <div style={{ height: "35vh" }}>
       <GoogleMapReact
@@ -53,8 +71,8 @@ const Map = ({ location, zoomLevel, long, lati }) => (
         defaultZoom={zoomLevel}
       >
         <LocationPin
-          lat={lati}
-          lng={long}
+          lat={driver.lat}
+          lng={driver.lng}
           img={
             "https://d2gg9evh47fn9z.cloudfront.net/1600px_COLOURBOX7963927.jpg"
           }

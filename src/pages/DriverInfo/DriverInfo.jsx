@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { ArrowLeft, ArrowRight, Check } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
 import FirstStep from "../../components/FirstStep/FirstStep";
 import Layout from "../../components/Layout/Layout";
 import UserLayout from "../../components/Layout/UserLayout";
@@ -101,10 +102,12 @@ function DriverInfo() {
                     Next Step <ArrowRight style={{ fontSize: "15px" }} />
                   </Button>
                 ) : (
-                  <Button variant="success" style={{ color: "white" }}>
-                    Submit
-                    <Check style={{ fontSize: "15px" }} />
-                  </Button>
+                  <Link to="/driverpanel">
+                    <Button variant="success" style={{ color: "white" }}>
+                      Submit
+                      <Check style={{ fontSize: "15px" }} />
+                    </Button>
+                  </Link>
                 )}
               </div>
             </div>

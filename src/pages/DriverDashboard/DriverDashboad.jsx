@@ -1,9 +1,10 @@
 import React from "react";
+import UserLayout from "../../components/Layout/UserLayout";
 
 function DriverDashboad() {
   return (
     <div>
-      <h3>Driver's Panel</h3>
+      <UserLayout></UserLayout>
     </div>
   );
 }
