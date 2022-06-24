@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "./DriverSignup.module.css";
+import styles from "./DriverSignin.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import firebase from "firebase";
 import track from "../../styles/assets/Driver.png";
@@ -10,7 +10,7 @@ import app from "../../Firebase";
 import { myAlert } from "../../components/myAlert";
 import { getUser } from "../../redux/actions/userAction";
 
-function DriverSignup() {
+function DriverSignin() {
   const ref = firebase.firestore().collection("Drivers");
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(true);
@@ -90,9 +90,6 @@ function DriverSignup() {
         <div style={{ marginLeft: "17em", marginRight: "17em" }}>
           <div className={`${styles.main_box}`}>
             <div className={`${styles.main_hold}`}>
-              <div className={`${styles.img_box}`}>
-                <img src={track} alt="" />
-              </div>
               <div className={`${styles.form_box}`}>
                 <div
                   style={{
@@ -104,9 +101,9 @@ function DriverSignup() {
                     textAlign: "center",
                   }}
                 >
-                  <h2>Sign Up Here</h2>
+                  <h2>Sign In Here</h2>
                   <p style={{ color: "#6462D6", fontSize: "22px" }}>
-                    Register as Driver in Fleetway
+                    Login as Driver in Fleetway
                   </p>
                 </div>
                 <div
@@ -117,18 +114,7 @@ function DriverSignup() {
                     paddingRight: "5em",
                   }}
                 >
-                  <Form onSubmit={(e) => onsubmit(e)}>
-                    {show ? <Alert variant="danger">{error}</Alert> : null}
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Label>Name :</Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="Enter Name"
-                        name="name"
-                        value={name}
-                        onChange={(e) => onchange(e)}
-                      />
-                    </Form.Group>
+                  <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label>Email address</Form.Label>
                       <Form.Control
@@ -142,17 +128,6 @@ function DriverSignup() {
                         We'll never share your email with anyone else.
                       </Form.Text>
                     </Form.Group>
-                    {/* <Row></Row> */}
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Label>Telephone :</Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="Enter Phone Number"
-                        name="tel"
-                        value={tel}
-                        onChange={(e) => onchange(e)}
-                      />
-                    </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                       <Form.Label>Password:</Form.Label>
@@ -164,33 +139,28 @@ function DriverSignup() {
                         onChange={(e) => onchange(e)}
                       />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                      <Form.Label>Confirm Password</Form.Label>
-                      <Form.Control
-                        type="password"
-                        placeholder="Password"
-                        name="password2"
-                        value={password2}
-                        onChange={(e) => onchange(e)}
-                      />
-                    </Form.Group>
 
-                    <Button
-                      style={{
-                        width: "100%",
-                        backgroundColor: "#F6B100",
-                        border: "none",
-                      }}
-                      type="submit"
-                    >
-                      Submit
-                    </Button>
+                    <Link to="/driverInfo">
+                      <Button
+                        style={{
+                          width: "100%",
+                          backgroundColor: "#F6B100",
+                          border: "none",
+                        }}
+                        type="submit"
+                      >
+                        Submit
+                      </Button>
+                    </Link>
                     <p className="text-center">
-                      Already have an account?{" "}
-                      <a href="/signin-driver">Sign In</a>
+                      Don't have an account?{" "}
+                      <a href="/signup-driver">Sign Up</a>
                     </p>
                   </Form>
                 </div>
+              </div>
+              <div className={`${styles.img_box}`}>
+                <img src={track} alt="" />
               </div>
             </div>
           </div>
@@ -200,4 +170,4 @@ function DriverSignup() {
   );
 }
 
-export default DriverSignup;
+export default DriverSignin;
