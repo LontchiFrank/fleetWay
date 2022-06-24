@@ -17,7 +17,7 @@ function SignIn() {
     e.preventDefault();
     app
       .auth()
-      .createUserWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email, password)
       .then((data) => {
         console.log({
           message: `user${data.user.uid} signed up successfully`,
@@ -28,6 +28,7 @@ function SignIn() {
         //you can now save the user state globally and navigate to the next page
       })
       .catch((err) => {
+        myAlert(false);
         console.error(err);
       });
   };

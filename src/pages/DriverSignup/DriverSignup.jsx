@@ -78,6 +78,7 @@ function DriverSignup() {
             });
         })
         .catch((err) => {
+          myAlert(false);
           setError(err.message);
         });
     }

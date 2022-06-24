@@ -77,6 +77,7 @@ function Signup() {
               //you can now save the user state globally and navigate to the next page
             })
             .catch((err) => {
+              myAlert(false);
               console.error(err);
             });
         })

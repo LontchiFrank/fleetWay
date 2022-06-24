@@ -1,7 +1,11 @@
 import React from "react";
 import { Row, Form } from "react-bootstrap";
+import firebase from "firebase";
 
 function FirstStep() {
+  var driver = firebase.auth().currentUser;
+
+  console.log(driver);
   return (
     <div className="p-4">
       <div class="text">
@@ -24,7 +28,12 @@ function FirstStep() {
         <Row>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              value={driver.email}
+              disabled
+            />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
             </Form.Text>

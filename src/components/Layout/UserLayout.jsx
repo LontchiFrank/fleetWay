@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import firebase from "firebase";
+import { Power } from "react-bootstrap-icons";
 
 function UserLayout({ children }) {
+  const ref = firebase.firestore().collection("Drivers");
+
+  var driver = firebase.auth().currentUser;
+
   return (
     <main>
       <nav className="navbar navbar-expand-lg navbar-light  pt-3 pb-3">
@@ -42,23 +48,43 @@ function UserLayout({ children }) {
                   Home
                 </Link>
               </li>
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDarkDropdownMenuLink"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Profile
+                  </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-dark"
+                    aria-labelledby="navbarLightDropdownMenuLink"
+                  >
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        My Profile
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        Sign Out{" "}
+                        <Power
+                          style={{
+                            fontSize: "21px",
+                            textAlign: "center",
+                            color: "white",
+                          }}
+                        />
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
 
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdownMenuLink"
-                  role="button"
-                  data-mdb-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  About Us
-                </a>
-                <ul
-                  class="dropdown-menu"
-                  aria-labelledby="navbarDropdownMenuLink"
-                ></ul>
-              </li>
               <li className="nav-item">
                 <Link
                   to="/testimony"
