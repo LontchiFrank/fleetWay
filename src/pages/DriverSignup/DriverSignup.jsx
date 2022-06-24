@@ -69,7 +69,7 @@ function DriverSignup() {
               });
               myAlert(d ? true : false);
               dispatch(getUser(newDataObj));
-              navigate("/userdashboard");
+              navigate("/driverInfo");
 
               //you can now save the user state globally and navigate to the next page
             })
