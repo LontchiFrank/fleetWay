@@ -61,6 +61,7 @@ function DriverSignin() {
       })
       .catch((err) => {
         console.error(err);
+        setError(err.message);
         myAlert(false);
       });
   };
@@ -95,7 +96,8 @@ function DriverSignin() {
                     paddingRight: "5em",
                   }}
                 >
-                  <Form>
+                  <Form onSubmit={(e) => onsubmit(e)}>
+                    {error ? <Alert variant="danger">{error}</Alert> : null}
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label>Email address</Form.Label>
                       <Form.Control
@@ -121,18 +123,17 @@ function DriverSignin() {
                       />
                     </Form.Group>
 
-                    <Link to="/driverInfo">
-                      <Button
-                        style={{
-                          width: "100%",
-                          backgroundColor: "#F6B100",
-                          border: "none",
-                        }}
-                        type="submit"
-                      >
-                        Submit
-                      </Button>
-                    </Link>
+                    <Button
+                      style={{
+                        width: "100%",
+                        backgroundColor: "#F6B100",
+                        border: "none",
+                      }}
+                      type="submit"
+                    >
+                      Submit
+                    </Button>
+
                     <p className="text-center">
                       Don't have an account?{" "}
                       <a href="/signup-driver">Sign Up</a>

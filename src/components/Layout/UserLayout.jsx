@@ -5,8 +5,11 @@ import { Power } from "react-bootstrap-icons";
 
 function UserLayout({ children }) {
   const ref = firebase.firestore().collection("Drivers");
+  var drivers = firebase.auth().currentUser;
 
-  var driver = firebase.auth().currentUser;
+  const newDataObj = {};
+  // var driver = ref.doc().get(newDataObj);
+  // console.log(driver);
 
   return (
     <main>
