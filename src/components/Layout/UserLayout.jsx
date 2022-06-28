@@ -2,14 +2,23 @@ import React from "react";
 import { Link } from "react-router-dom";
 import firebase from "firebase";
 import { Power } from "react-bootstrap-icons";
+import { myAlert } from "../myAlert";
 
 function UserLayout({ children }) {
   const ref = firebase.firestore().collection("Drivers");
   var drivers = firebase.auth().currentUser;
 
-  const newDataObj = {};
-  // var driver = ref.doc().get(newDataObj);
-  // console.log(driver);
+  const signOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        myAlert(true);
+      })
+      .catch((error) => {
+        myAlert(false);
+      });
+  };
 
   return (
     <main>
@@ -68,7 +77,7 @@ function UserLayout({ children }) {
                     aria-labelledby="navbarLightDropdownMenuLink"
                   >
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="/driverprofile">
                         My Profile
                       </a>
                     </li>
@@ -81,6 +90,7 @@ function UserLayout({ children }) {
                             textAlign: "center",
                             color: "white",
                           }}
+                          onClick={() => signOut()}
                         />
                       </a>
                     </li>
