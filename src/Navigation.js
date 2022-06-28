@@ -30,7 +30,7 @@ function Navigation() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/signin" element={<SignIn />} />
-          <Route exact path="/userdashboard" element={<UserDashboard />} />
+          <Route exact path="/" element={<UserDashboard />} />
           <Route exact path="/signup-driver" element={<DriverSignup />} />
           <Route exact path="/signin-driver" element={<DriverSignin />} />
           <Route exact path="/geo-map" element={<GeoMap />} />
