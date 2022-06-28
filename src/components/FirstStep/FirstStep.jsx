@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Form } from "react-bootstrap";
 import firebase from "firebase";
 
 function FirstStep() {
-  var database = firebase.database();
+  var driver = firebase.auth().currentUser;
+  const ref = firebase.firestore();
+  const [currentUser, setCurrentUser] = useState();
 
-  // console.log(driver);
+  useEffect(() => {
+    var docRef = ref.collection("Drivers").doc(driver.email);
+
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+          setCurrentUser(doc.data());
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  }, []);
+
+  console.log(currentUser);
   return (
     <div className="p-4">
       <div class="text">
@@ -17,7 +35,11 @@ function FirstStep() {
         <Row>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>First Name:</Form.Label>
-            <Form.Control type="text" placeholder="Enter First Name" />
+            <Form.Control
+              type="text"
+              placeholder="Enter First Name"
+              value={currentUser && currentUser.name}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Last Name:</Form.Label>
@@ -31,7 +53,7 @@ function FirstStep() {
             <Form.Control
               type="email"
               placeholder="Enter email"
-              // value={driver.email}
+              value={driver.email}
               disabled
             />
             <Form.Text className="text-muted">
@@ -41,11 +63,20 @@ function FirstStep() {
 
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Phone Number:</Form.Label>
-            <Form.Control type="number" placeholder="Enter Phone Number" />
+            <Form.Control
+              type="number"
+              placeholder="Enter Phone Number"
+              value={currentUser && currentUser.tel}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Location:</Form.Label>
-            <Form.Control type="text" placeholder="Enter email" />
+            <Form.Control
+              type="text"
+              placeholder="Enter Location"
+              value={currentUser && currentUser.location}
+              cation
+            />
           </Form.Group>
         </Row>
       </Form>
