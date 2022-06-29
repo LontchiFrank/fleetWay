@@ -3,11 +3,11 @@ import { Row, Form } from "react-bootstrap";
 import firebase from "firebase";
 
 function FirstStep() {
+  var driver = firebase.auth().currentUser;
+  const ref = firebase.firestore();
   const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
-    var driver = firebase.auth().currentUser;
-    const ref = firebase.firestore();
     var docRef = ref.collection("Drivers").doc(driver.email);
 
     docRef
