@@ -1,5 +1,34 @@
+.contained {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
 .profile_image {
   width: 100%;
+  height: 40%;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.6)
+    ),
+    url(../../styles/assets//driver.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user_photo {
+  width: 200px;
+  height: 200px;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+.user_info {
+  width: 100%;
   height: 30%;
-  background-color: aquamarine;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
