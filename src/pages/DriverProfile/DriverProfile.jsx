@@ -4,6 +4,7 @@ import styles from "./DriverProfile.module.css";
 import firebase from "firebase";
 import {
   EnvelopeCheck,
+  GenderMale,
   Geo,
   GeoAltFill,
   Phone,
@@ -41,17 +42,23 @@ function DriverProfile() {
               {currentUser && currentUser.name}{" "}
             </h3>
           </div>
+          <h2>User Information</h2>
           <div className={`${styles.user_info} p-4`}>
             <div className="Email" style={{ width: "25%", height: "100%" }}>
               <div
                 style={{
                   display: "flex",
                   justifyContent: "center",
+                  alignItems: "center",
                   flexDirection: "column",
                 }}
               >
-                <EnvelopeCheck style={{ fontSize: "28px", color: "black" }} />
-                <p> {currentUser.email} </p>
+                <EnvelopeCheck
+                  className="mb-3"
+                  style={{ fontSize: "28px", color: "black" }}
+                />
+                <p> Email:</p>
+                <p style={{ color: "#242424" }}> {currentUser.email} </p>
               </div>
             </div>
             <div className="tel" style={{ width: "25%", height: "100%" }}>
@@ -59,21 +66,50 @@ function DriverProfile() {
                 style={{
                   display: "flex",
                   justifyContent: "center",
+                  alignItems: "center",
                   flexDirection: "column",
                 }}
               >
-                <TelephoneFill style={{ fontSize: "28px", color: "black" }} />
+                <TelephoneFill
+                  className="mb-3"
+                  style={{ fontSize: "28px", color: "black" }}
+                />
+                <p> Phone Number:</p>
+                <p style={{ color: "#242424" }}> {currentUser.tel} </p>
               </div>
             </div>
-            <div className="location">
+            <div className="location" style={{ width: "25%", height: "100%" }}>
               <div
                 style={{
                   display: "flex",
                   justifyContent: "center",
+                  alignItems: "center",
                   flexDirection: "column",
                 }}
               >
-                <GeoAltFill style={{ fontSize: "28px", color: "black" }} />
+                <GeoAltFill
+                  className="mb-3"
+                  style={{ fontSize: "28px", color: "black" }}
+                />
+                <p> Location:</p>
+                <p style={{ color: "#242424" }}> {currentUser.location} </p>
+              </div>
+            </div>
+            <div className="gender" style={{ width: "25%", height: "100%" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                }}
+              >
+                <GenderMale
+                  className="mb-3"
+                  style={{ fontSize: "28px", color: "black" }}
+                />
+                <p> Gender:</p>
+                <p style={{ color: "#242424" }}> {currentUser.gender} </p>
               </div>
             </div>
           </div>

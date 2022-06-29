@@ -3,7 +3,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  /* justify-content: space-around; */
 }
 .profile_image {
   width: 100%;
@@ -21,16 +21,23 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 4em;
 }
 .user_photo {
   width: 200px;
   height: 200px;
   border: 2px solid white;
+  background: url(../../styles/assets/brand.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   border-radius: 50%;
 }
 .user_info {
   width: 100%;
-  height: 30%;
+  height: 20%;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
