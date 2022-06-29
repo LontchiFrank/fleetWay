@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import firebase from "firebase";
 import { Power } from "react-bootstrap-icons";
 import { myAlert } from "../myAlert";
+import { useNavigate } from "react-router-dom";
 
 function UserLayout({ children }) {
   const ref = firebase.firestore().collection("Drivers");
   var drivers = firebase.auth().currentUser;
+  const navigate = useNavigate();
 
   const signOut = () => {
     firebase
@@ -14,6 +16,7 @@ function UserLayout({ children }) {
       .signOut()
       .then(() => {
         myAlert(true);
+        navigate("/");
       })
       .catch((error) => {
         myAlert(false);
@@ -82,7 +85,11 @@ function UserLayout({ children }) {
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a
+                        class="dropdown-item"
+                        href="#"
+                        onClick={() => signOut()}
+                      >
                         Sign Out{" "}
                         <Power
                           style={{
@@ -90,7 +97,6 @@ function UserLayout({ children }) {
                             textAlign: "center",
                             color: "white",
                           }}
-                          onClick={() => signOut()}
                         />
                       </a>
                     </li>
