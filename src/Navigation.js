@@ -12,6 +12,8 @@ import TrackPay from "./pages/TrackPay/TrackPay";
 import DriverSignin from "./pages/DriverSignin/DriverSignin";
 import DriverDashboad from "./pages/DriverDashboard/DriverDashboad";
 import DriverProfile from "./pages/DriverProfile/DriverProfile";
+import DriverHome from "./components/DriverHome";
+import DriverLayout from "./components/Layout/DriverLayout";
 
 function ScrollToTop({ children }) {
   const { pathname } = useLocation();
@@ -39,6 +41,7 @@ function Navigation() {
           <Route exact path="/trackingpay" element={<TrackPay />} />
           <Route exact path="/driverpanel" element={<DriverDashboad />} />
           <Route exact path="/driverprofile" element={<DriverProfile />} />
+          <Route exact path="/drive-home" element={<DriverHome />} />
         </Routes>
       </ScrollToTop>
     </BrowserRouter>
