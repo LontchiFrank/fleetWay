@@ -19,8 +19,8 @@ function DriverProfile() {
   const [currentUser, setCurrentUser] = useState();
   const [selectedImage, setSelectedImage] = useState();
 
+  var docRef = ref.collection("Drivers").doc(driver.email);
   useEffect(() => {
-    var docRef = ref.collection("Drivers").doc(driver.email);
     docRef
       .get()
       .then((doc) => {
