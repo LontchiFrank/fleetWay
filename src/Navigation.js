@@ -13,6 +13,7 @@ import DriverSignin from "./pages/DriverSignin/DriverSignin";
 import DriverDashboad from "./pages/DriverDashboard/DriverDashboad";
 import DriverProfile from "./pages/DriverProfile/DriverProfile";
 import DriverHome from "./components/DriverHome";
+import DriverHistory from "./components/DriverHistory";
 import DriverLayout from "./components/Layout/DriverLayout";
 
 function ScrollToTop({ children }) {
@@ -39,9 +40,10 @@ function Navigation() {
           <Route exact path="/geo-map" element={<GeoMap />} />
           <Route exact path="/driverInfo" element={<DriverInfo />} />
           <Route exact path="/trackingpay" element={<TrackPay />} />
-          <Route exact path="/driverpanel" element={<DriverDashboad />} />
+          <Route exact path="/driverpanel" element={<DriverLayout />} />
           <Route exact path="/driverprofile" element={<DriverProfile />} />
           <Route exact path="/drive-home" element={<DriverHome />} />
+          <Route path="/driver-history" element={<DriverHistory />} />
         </Routes>
       </ScrollToTop>
     </BrowserRouter>

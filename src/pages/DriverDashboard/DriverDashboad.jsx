@@ -18,10 +18,10 @@ function DriverDashboad() {
         </CDBSidebarHeader>
         <CDBSidebarContent>
           <CDBSidebarMenu>
-            <NavLink to="/drive-home">
+            <NavLink exact to="/drive-home">
               <CDBSidebarMenuItem icon="th-large">Dashboard</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink to="/driver-history">
+            <NavLink exact to="/driver-history">
               <CDBSidebarMenuItem icon="sticky-note">
                 Components
               </CDBSidebarMenuItem>
