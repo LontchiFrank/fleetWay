@@ -9,7 +9,6 @@ function FirstStep() {
 
   useEffect(() => {
     var docRef = ref.collection("Drivers").doc(driver.email);
-
     docRef
       .get()
       .then((doc) => {
@@ -53,7 +52,7 @@ function FirstStep() {
             <Form.Control
               type="email"
               placeholder="Enter email"
-              value={driver.email}
+              value={currentUser && currentUser.email}
               disabled
             />
             <Form.Text className="text-muted">

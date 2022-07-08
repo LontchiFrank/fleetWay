@@ -77,7 +77,7 @@ function Layout({ children }) {
                 >
                   <li className="nav-item">
                     <Link
-                      to="/login"
+                      to="/signin"
                       className="nav-link actived"
                       aria-current="page"
                       style={{ color: "#F6B100", fontweight: "700" }}
@@ -118,9 +118,7 @@ function Layout({ children }) {
         <div className="container text-md-left">
           <div className="row">
             <div className="col-md-3 mt-md-0 mt-3">
-              <h5 className="text-uppercase">
-                Dream Institution For Professionalism
-              </h5>
+              <h5 className="text-uppercase">FleetWay</h5>
               <p>
                 Proven that most people actually give it a chance when they are
                 guided to understand the basics about the industry.

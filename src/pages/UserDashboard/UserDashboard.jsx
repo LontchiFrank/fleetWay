@@ -18,18 +18,20 @@ import { Link } from "react-router-dom";
 
 function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
   const [back, setBack] = useState(true);
+  const ref = firebase.firestore();
   const toggle = () => {
     setBack(!back);
   };
-  // useEffect(() => {
-  //   ref.get().then((item) => {
-  //     const items = item.docs.map((doc) => doc.data());
-  //     setData(items);
-  //   });
-
-  //   dispatch(getDrivers(data));
-  //   console.log(data);
-  // }, []);
+  var driver = firebase.auth().currentUser;
+  console.log(driver);
+  useEffect(() => {
+    // ref.get().then((item) => {
+    //   const items = item.docs.map((doc) => doc.data());
+    //   setData(items);
+    // });
+    // dispatch(getDrivers(data));
+    // console.log(data);
+  }, []);
 
   return (
     <Modal
