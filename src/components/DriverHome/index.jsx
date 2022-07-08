@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
 
 function DriverHome() {
@@ -17,6 +18,8 @@ function DriverHome() {
           overflowY: "hidden",
         }}
       >
+        <Navbar />
+
         <div style={{ height: "100%" }}>
           <div style={{ height: "calc(100% - 64px)", overflowY: "scroll" }}>
             <div className="p-4">

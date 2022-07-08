@@ -1,6 +1,6 @@
 import React from "react";
 
-function index() {
+function RequestCard() {
   return (
     <div
       className="card-request d-flex justify-content-center"
@@ -9,4 +9,4 @@ function index() {
   );
 }
 
-export default index;
+export default RequestCard;
