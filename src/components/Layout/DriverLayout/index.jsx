@@ -129,7 +129,7 @@ function DriverLayout({ children }) {
                       </div>
                     </div>
                     <h4 className="my-4 text-right text-dark h2 font-weight-bold">
-                      300 FCFA
+                      550 FCFA
                     </h4>
                     <CDBProgress
                       value={65}
@@ -142,7 +142,7 @@ function DriverLayout({ children }) {
                         style={{ fontSize: "0.95em" }}
                         className="ml-2 font-weight-bold text-muted"
                       >
-                        Since last month
+                        Since yesterday
                       </span>
                     </p>
                   </div>
@@ -281,7 +281,7 @@ function DriverLayout({ children }) {
                   <div className="d-flex flex-column p-0 h-100">
                     <div className="mx-4 mt-3 d-flex justify-content-between align-items-center">
                       <h4 className="font-weight-bold text-dark h5">
-                        Page Visits
+                        Recent Users
                       </h4>
                       <div className="p-1 bg-grey rounded-circle">
                         <i className="fas fa-sticky-note"></i>
