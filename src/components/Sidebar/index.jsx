@@ -29,10 +29,10 @@ const Sidebar = () => {
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
             <NavLink to="/driverpanel" active="activeClicked">
-              <CDBSidebarMenuItem icon="columns">dashboard</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="columns">Dashboard</CDBSidebarMenuItem>
             </NavLink>
             <NavLink to="/drive-home" active="activeClicked">
-              <CDBSidebarMenuItem icon="table">tables</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="table">Services</CDBSidebarMenuItem>
             </NavLink>
             <NavLink to="/drive-history" active="activeClicked">
               <CDBSidebarMenuItem icon="user">profile</CDBSidebarMenuItem>

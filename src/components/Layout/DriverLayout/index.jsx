@@ -145,10 +145,6 @@ function DriverLayout({ children }) {
                         Since last month
                       </span>
                     </p>
-                    <p className="c-p mb-0 text-dark font-weight-bold text-right mt-auto">
-                      More Details
-                      <i className="fas fa-arrow-right ml-1"></i>
-                    </p>
                   </div>
                 </div>
                 <div className="card-bg w-100 border d-flex flex-column">
@@ -291,43 +287,35 @@ function DriverLayout({ children }) {
                         <i className="fas fa-sticky-note"></i>
                       </div>
                     </div>
-                    <CDBTable borderless responsive>
-                      <CDBTableHeader color="light">
-                        <tr>
-                          <th>Page Name</th>
-                          <th className="table-rem">Views</th>
-                          <th className="table-rem">Value</th>
-                          <th>Bounce Rate</th>
-                        </tr>
-                      </CDBTableHeader>
-                      <CDBTableBody>
-                        <tr>
-                          <td>/demo/admin/index.html</td>
-                          <td className="table-rem">3,689</td>
-                          <td className="table-rem">$10</td>
-                          <td className="text-success text-center">
-                            <i className="fas fa-arrow-up"></i> 20%
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>/demo/admin/index.html</td>
-                          <td className="table-rem">3,689</td>
-                          <td className="table-rem">$10</td>
-                          <td className="text-success text-center">
-                            <i className="fas fa-arrow-up"></i> 20%
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>/demo/admin/index.html</td>
-                          <td className="table-rem">3,689</td>
-                          <td className="table-rem">$10</td>
-                          <td className="text-success text-center">
-                            <i className="fas fa-arrow-up"></i> 20%
-                          </td>
-                        </tr>
-                      </CDBTableBody>
-                    </CDBTable>
-                    <p className="c-p text-dark font-weight-bold text-right mt-auto mr-3">
+                    <div className="mx-4">
+                      <CDBTable borderless responsive>
+                        <CDBTableHeader color="light">
+                          <tr>
+                            <th>User Name</th>
+                            <th className="table-rem">Destination</th>
+                            <th className="table-rem">Price</th>
+                          </tr>
+                        </CDBTableHeader>
+                        <CDBTableBody>
+                          <tr>
+                            <td>Nixon Ndume</td>
+                            <td className="table-rem">Malingo,</td>
+                            <td className="table-rem">200frs</td>
+                          </tr>
+                          <tr>
+                            <td>Larissa Sakwe</td>
+                            <td className="table-rem">Boundouma</td>
+                            <td className="table-rem">100frs</td>
+                          </tr>
+                          <tr>
+                            <td>Yaya Mamoudou</td>
+                            <td className="table-rem">Sampit</td>
+                            <td className="table-rem">200frs</td>
+                          </tr>
+                        </CDBTableBody>
+                      </CDBTable>
+                    </div>
+                    <p className="mx-4 c-p text-dark font-weight-bold text-right mt-auto mr-3">
                       See More
                       <i className="fas fa-arrow-right ml-1"></i>
                     </p>
@@ -337,12 +325,6 @@ function DriverLayout({ children }) {
             </div>
             <footer className="footer">
               <div className="d-flex align-items-center">
-                {/* <CDBLink to="/" className="text-dark footer-link">
-                  <img alt="logo" src="/img/pages/logo.png" width="25px" />
-                  <span className="ml-4 lead mb-0 font-weight-bold">
-                    Devwares
-                  </span>
-                </CDBLink> */}
                 <span
                   className="footer-rem"
                   style={{
