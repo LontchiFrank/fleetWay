@@ -6,14 +6,10 @@ import DriverHome from "../../components/DriverHome";
 function DriverPanel() {
   return (
     <div>
-      <DriverLayout>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/driver-home" element={<DriverHome />} />
-            <Route path="/driver-history" element={<DriverHistory />} />
-          </Routes>
-        </BrowserRouter>
-      </DriverLayout>
+      <Routes>
+        <Route path="/driver-home" element={<DriverHome />} />
+        <Route path="/driver-history" element={<DriverHistory />} />
+      </Routes>
     </div>
   );
 }

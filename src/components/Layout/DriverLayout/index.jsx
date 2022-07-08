@@ -19,8 +19,12 @@ import {
 } from "chart.js";
 import { Pie, Bar } from "react-chartjs-2";
 import DriverDashboad from "../../../pages/DriverDashboard/DriverDashboad";
+import { Route, Routes } from "react-router-dom";
 import Sidebar from "../../Sidebar";
 import "./Dash.css";
+import DriverHome from "../../DriverHome";
+import DriverHistory from "../../DriverHistory";
+import DriverPanel from "../../../pages/DriverPanel";
 
 ChartJS.register(
   ArcElement,
@@ -125,7 +129,7 @@ function DriverLayout({ children }) {
                       </div>
                     </div>
                     <h4 className="my-4 text-right text-dark h2 font-weight-bold">
-                      $30,000
+                      300 FCFA
                     </h4>
                     <CDBProgress
                       value={65}
@@ -379,6 +383,7 @@ function DriverLayout({ children }) {
             </footer>
           </div>
         </div>
+        <DriverPanel />
       </div>
     </div>
   );
