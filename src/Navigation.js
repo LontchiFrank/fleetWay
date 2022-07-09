@@ -15,6 +15,7 @@ import DriverProfile from "./pages/DriverProfile/DriverProfile";
 import DriverHome from "./components/DriverHome";
 import DriverHistory from "./components/DriverHistory";
 import DriverLayout from "./components/Layout/DriverLayout";
+import LyftTrack from "./pages/LyftTrack";
 
 function ScrollToTop({ children }) {
   const { pathname } = useLocation();
@@ -40,6 +41,7 @@ function Navigation() {
           <Route exact path="/geo-map" element={<GeoMap />} />
           <Route exact path="/driverInfo" element={<DriverInfo />} />
           <Route exact path="/trackingpay" element={<TrackPay />} />
+          <Route exact path="/lyft-track" element={<LyftTrack />} />
           <Route exact path="/driverpanel" element={<DriverLayout />} />
           <Route exact path="/driverprofile" element={<DriverProfile />} />
           <Route exact path="/drive-home" element={<DriverHome />} />

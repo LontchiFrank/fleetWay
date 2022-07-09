@@ -27,12 +27,20 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
     date: "",
     time: "",
   });
+  const [order2, setOrder2] = useState({
+    destinations: "",
+    locates: "",
+    prices: "",
+    seats: "",
+    times: "",
+  });
   const ref = firebase.firestore();
   const toggle = () => {
     setBack(!back);
   };
   const navigate = useNavigate();
   const { destination, locate, price, date, time } = order;
+  const { destinations, locates, prices, seats, times } = order2;
 
   var user = firebase.auth().currentUser;
   // console.log(user.uid);
@@ -54,10 +62,15 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
   }, []);
   console.log(currentUser);
   const newDataObj = { currentUser, destination, locate, price, date, time };
+  const newDataObj1 = { currentUser, destinations, locates, prices, times };
 
   const onchange = (e) => {
     setOrder({ ...order, [e.target.name]: e.target.value });
   };
+  const onchange2 = (e) => {
+    setOrder2({ ...order2, [e.target.name]: e.target.value });
+  };
+
   const onsubmit = (e) => {
     e.preventDefault();
     ref
@@ -69,6 +82,20 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
       .then(() => {
         myAlert(true);
         navigate("/trackingpay");
+      });
+  };
+
+  const onsubmit2 = (e) => {
+    e.preventDefault();
+    ref
+      .collection("Drivers")
+      .doc("Driver 1")
+      .collection("Order2")
+      .doc("Order2")
+      .set(newDataObj1)
+      .then(() => {
+        myAlert(true);
+        navigate("/lyft-track");
       });
   };
 
@@ -220,6 +247,9 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
                       <Form.Control
                         type="text"
                         placeholder="Enter Destination"
+                        name="destinations"
+                        value={destinations}
+                        onChange={(e) => onchange2(e)}
                       />
                     </Form.Group>
                   </Col>
@@ -227,7 +257,13 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
                   <Col md="6">
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label>Location:</Form.Label>
-                      <Form.Control type="text" placeholder="Enter Location" />
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter Location"
+                        name="locates"
+                        value={locates}
+                        onChange={(e) => onchange2(e)}
+                      />
                       <Form.Text className="text-muted"></Form.Text>
                     </Form.Group>
                   </Col>
@@ -236,7 +272,13 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
                   <Col md="6">
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label>Price:</Form.Label>
-                      <Form.Control type="text" placeholder="Enter Price" />
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter Price"
+                        name="prices"
+                        value={prices}
+                        onChange={(e) => onchange2(e)}
+                      />
                       <Form.Text className="text-muted"></Form.Text>
                     </Form.Group>
                   </Col>
@@ -244,20 +286,28 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
                   <Col md="6">
                     <Form.Group className="mb-3">
                       <Form.Label>Number of Seat</Form.Label>
-                      <Form.Select>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </Form.Select>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter Seats"
+                        name="seats"
+                        value={seats}
+                        onChange={(e) => onchange2(e)}
+                      />
                     </Form.Group>
                   </Col>
 
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Location:</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Location" />
-                  </Form.Group>
+                  <Col md="6">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Time:</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter Time of Departure "
+                        name="times"
+                        value={times}
+                        onChange={(e) => onchange2(e)}
+                      />
+                    </Form.Group>
+                  </Col>
                 </Row>
               </Form>
             </div>
@@ -265,14 +315,15 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="warning" onClick={(e) => onsubmit(e)}>
-          {/* <Link
-            to="/trackingpay"
-            style={{ textDecoration: "none", color: "black" }}
-          > */}
-          Hire Taxi
-          {/* </Link> */}
-        </Button>
+        {back ? (
+          <Button variant="warning" onClick={(e) => onsubmit(e)}>
+            Hire Taxi
+          </Button>
+        ) : (
+          <Button variant="warning" onClick={(e) => onsubmit2(e)}>
+            Hire Taxi
+          </Button>
+        )}
         <Button onClick={() => setModalShow(false)}>Cancel</Button>
       </Modal.Footer>
     </Modal>

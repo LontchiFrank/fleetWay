@@ -10,10 +10,6 @@ function DriverHome() {
   const [user, setUser] = useState([]);
   const [toggle, setToggle] = useState(false);
 
-  // const handleToggle = (toggles) => {
-  //   setToggle(!toggles);
-  //   console.log(toggles);
-  // };
   console.log(toggle);
 
   var docRef = ref

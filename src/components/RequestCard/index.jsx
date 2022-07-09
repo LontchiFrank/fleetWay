@@ -6,12 +6,6 @@ import firebase from "firebase";
 import { myAlert } from "../myAlert";
 
 function RequestCard({ User, toggle, setToggle }) {
-  // const [toggle1, setToggle1] = useState(false);
-
-  // const handleToggle = (toggles) => {
-  //   setToggle1(!toggles);
-  // };
-  // console.log(toggle1);
   const ref = firebase.firestore();
 
   var docRef = ref
