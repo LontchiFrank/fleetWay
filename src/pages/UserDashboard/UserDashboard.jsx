@@ -14,24 +14,63 @@ import {
 import firebase from "firebase";
 import { getDrivers } from "../../redux/actions/driverAction";
 import GeoMap from "../GeoMap/GeoMap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { myAlert } from "../../components/myAlert";
 
 function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
   const [back, setBack] = useState(true);
+  const [currentUser, setCurrentUser] = useState();
+  const [order, setOrder] = useState({
+    destination: "",
+    locate: "",
+    price: "",
+    date: "",
+    time: "",
+  });
   const ref = firebase.firestore();
   const toggle = () => {
     setBack(!back);
   };
-  var driver = firebase.auth().currentUser;
-  console.log(driver);
+  const navigate = useNavigate();
+  const { destination, locate, price, date, time } = order;
+
+  var user = firebase.auth().currentUser;
+  // console.log(user.uid);
+
+  var docRef = ref.collection("Users").doc("A2zYqv504kxTf6kxG55W");
+
   useEffect(() => {
-    // ref.get().then((item) => {
-    //   const items = item.docs.map((doc) => doc.data());
-    //   setData(items);
-    // });
-    // dispatch(getDrivers(data));
-    // console.log(data);
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+          setCurrentUser(doc.data());
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
   }, []);
+  console.log(currentUser);
+  const newDataObj = { destination, locate, price, date, time };
+
+  const onchange = (e) => {
+    setOrder({ ...order, [e.target.name]: e.target.value });
+  };
+  const onsubmit = (e) => {
+    e.preventDefault();
+    ref
+      .collection("Drivers")
+      .doc("Driver 1")
+      .collection("Order1")
+      .doc("Order1")
+      .set(newDataObj)
+      .then(() => {
+        myAlert(true);
+        navigate("/trackingpay");
+      });
+  };
 
   return (
     <Modal
@@ -73,7 +112,7 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
               onClick={() => toggle()}
             >
               <div className="d-flex  pt-2 ">
-                <h5 className="pt-2">Take A lyft</h5>
+                <h5 className="pt-2">Book Car</h5>
                 <GeoAltFill style={{ fontSize: "22px", marginTop: "10px" }} />
               </div>
             </div>
@@ -92,12 +131,86 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
               onClick={() => toggle()}
             >
               <div className="d-flex  pt-2 ">
-                <h5 className="pt-2">Book Car</h5>
+                <h5 className="pt-2"> Take A lyft</h5>
                 <Phone style={{ fontSize: "22px", marginTop: "10px" }} />
               </div>
             </div>
           </div>
           {back ? (
+            <div className="p-4">
+              <Form>
+                <Row>
+                  <Col md="6">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Destination:</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter Destination"
+                        name="destination"
+                        value={destination}
+                        onChange={(e) => onchange(e)}
+                      />
+                    </Form.Group>
+                  </Col>
+
+                  <Col md="6">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Location:</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter Location"
+                        name="locate"
+                        value={locate}
+                        onChange={(e) => onchange(e)}
+                      />
+                      <Form.Text className="text-muted"></Form.Text>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md="6">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Price:</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter Price"
+                        name="price"
+                        value={price}
+                        onChange={(e) => onchange(e)}
+                      />
+                      <Form.Text className="text-muted"></Form.Text>
+                    </Form.Group>
+                  </Col>
+
+                  <Col md="6">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Date:</Form.Label>
+                      <Form.Control
+                        type="date"
+                        placeholder="Enter Date of Departure"
+                        name="date"
+                        value={date}
+                        onChange={(e) => onchange(e)}
+                      />
+                    </Form.Group>
+                  </Col>
+
+                  <Col md="6">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Time:</Form.Label>
+                      <Form.Control
+                        type="time"
+                        placeholder="Enter Time of Departure "
+                        name="time"
+                        value={time}
+                        onChange={(e) => onchange(e)}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </Form>
+            </div>
+          ) : (
             <div className="p-4">
               <Form>
                 <Row>
@@ -148,70 +261,17 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
                 </Row>
               </Form>
             </div>
-          ) : (
-            <div className="p-4">
-              <Form>
-                <Row>
-                  <Col md="6">
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Label>Destination:</Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="Enter Destination"
-                      />
-                    </Form.Group>
-                  </Col>
-
-                  <Col md="6">
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Label>Location:</Form.Label>
-                      <Form.Control type="text" placeholder="Enter Location" />
-                      <Form.Text className="text-muted"></Form.Text>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="6">
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Label>Price:</Form.Label>
-                      <Form.Control type="text" placeholder="Enter Price" />
-                      <Form.Text className="text-muted"></Form.Text>
-                    </Form.Group>
-                  </Col>
-
-                  <Col md="6">
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Label>Date:</Form.Label>
-                      <Form.Control
-                        type="date"
-                        placeholder="Enter Date of Departure"
-                      />
-                    </Form.Group>
-                  </Col>
-
-                  <Col md="6">
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Label>Time:</Form.Label>
-                      <Form.Control
-                        type="time"
-                        placeholder="Enter Time of Departure"
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-              </Form>
-            </div>
           )}
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="warning" onClick={() => setModalShow(false)}>
-          <Link
+        <Button variant="warning" onClick={(e) => onsubmit(e)}>
+          {/* <Link
             to="/trackingpay"
             style={{ textDecoration: "none", color: "black" }}
-          >
-            Hire Taxi
-          </Link>
+          > */}
+          Hire Taxi
+          {/* </Link> */}
         </Button>
         <Button onClick={() => setModalShow(false)}>Cancel</Button>
       </Modal.Footer>

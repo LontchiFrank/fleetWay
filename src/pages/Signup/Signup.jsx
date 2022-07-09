@@ -70,7 +70,7 @@ function Signup() {
                 message: `user${data.user.uid} signed up successfully`,
               });
 
-              myAlert(d ? true : false);
+              myAlert(true);
               dispatch(getUser(newDataObj));
               navigate("/userdashboard");
 

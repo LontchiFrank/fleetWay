@@ -2,18 +2,26 @@ import React from "react";
 import UserLayout from "../../components/Layout/UserLayout";
 import GeoMap from "../GeoMap/GeoMap";
 import mtn from "../../styles/assets/MTN.jpeg";
+import { useLottie } from "lottie-react";
+import groovyWalkAnimation from "../../animations/109616-girl-happy-to-get-fund.json";
 import orange from "../../styles/assets/momo.jpeg";
 
 import { Button, Card, Form, Row, Col, Modal } from "react-bootstrap";
 
 function TrackPay() {
+  const options = {
+    animationData: groovyWalkAnimation,
+    loop: true,
+  };
+  const { View } = useLottie(options);
+
   return (
     <UserLayout>
       <div className="container">
         <GeoMap />
         <h3 className="pt-4">Detail Information</h3>
         <div className="">
-          <Form>
+          {/* <Form>
             <Row>
               <Col md="6">
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -52,13 +60,17 @@ function TrackPay() {
                 </Form.Group>
               </Col>
             </Row>
-          </Form>
+          </Form> */}
+          <div
+            className="d-flex justify-content-center align-items-center flex-column mb-5"
+            style={{ width: "100%", height: "100%" }}
+          >
+            <div style={{ width: "30%", height: "40%" }}>{View}</div>
+            <h4>Please be Patient, Your Request has been sent</h4>
+          </div>
         </div>
-        {/* <div className="Ratings">
-          <h4>Rate this Driver</h4>
-          
-        </div> */}
-        <div>
+
+        {/* <div>
           <h4>ChoosePayment Method:</h4>
 
           <div
@@ -102,7 +114,7 @@ function TrackPay() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </UserLayout>
   );

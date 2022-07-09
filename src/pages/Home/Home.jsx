@@ -6,6 +6,7 @@ import taxi1 from "../../styles/assets/rect.png";
 import phone from "../../styles/assets/phone.jpg";
 import { Row, Form, Col, Button } from "react-bootstrap";
 import { Box, Car, CreditCard, Map } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
 
 // import styles from "./AdminLayout.module.css";
 
@@ -57,13 +58,15 @@ function Home() {
                         border: "none",
                       }}
                     >
-                      <h4
-                        style={{
-                          color: "white",
-                        }}
-                      >
-                        Sign Up As a User
-                      </h4>
+                      <Link to="/signup" style={{ textDecoration: "none" }}>
+                        <h4
+                          style={{
+                            color: "white",
+                          }}
+                        >
+                          Sign Up As a User
+                        </h4>
+                      </Link>
                     </button>
                   </div>
                   {/* <div
