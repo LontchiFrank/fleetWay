@@ -9,10 +9,13 @@ function DriverHome() {
   const ref = firebase.firestore();
   const [user, setUser] = useState([]);
   const [toggle, setToggle] = useState(false);
-  const handleToggle = (toggles) => {
-    setToggle(toggles);
-  };
+
+  // const handleToggle = (toggles) => {
+  //   setToggle(!toggles);
+  //   console.log(toggles);
+  // };
   console.log(toggle);
+
   var docRef = ref
     .collection("Drivers")
     .doc("Driver 1")
@@ -59,13 +62,27 @@ function DriverHome() {
                 <h2>User Request</h2>
               </div>
               <div className="body-request">
-                {user.map((el) => (
-                  <RequestCard User={el} toggles={toggle} />
+                {user.map((el, key) => (
+                  <RequestCard
+                    key={key}
+                    User={el}
+                    toggle={toggle}
+                    setToggle={setToggle}
+                  />
                 ))}
                 {toggle ? (
-                  <div style={{ width: "90%", heigth: "30vh" }}>
-                    {" "}
-                    <GeoMap />
+                  <div
+                    style={{
+                      width: "100%",
+                      heigth: "30vh",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <div style={{ width: "90%", heigth: "100%" }}>
+                      {" "}
+                      <GeoMap />
+                    </div>
                   </div>
                 ) : null}
               </div>

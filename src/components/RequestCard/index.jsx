@@ -2,14 +2,51 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Check2Circle, GeoAlt, Trash, Trash2Fill } from "react-bootstrap-icons";
 import rock from "../../styles/assets/1.png";
+import firebase from "firebase";
+import { myAlert } from "../myAlert";
 
-function RequestCard({ User, toggles }) {
-  const [toggle1, setToggle1] = useState(toggles);
+function RequestCard({ User, toggle, setToggle }) {
+  // const [toggle1, setToggle1] = useState(false);
 
-  const handleToggle = (toggles) => {
-    setToggle1(!toggles);
+  // const handleToggle = (toggles) => {
+  //   setToggle1(!toggles);
+  // };
+  // console.log(toggle1);
+  const ref = firebase.firestore();
+
+  var docRef = ref
+    .collection("Drivers")
+    .doc("Driver 1")
+    .collection("Order1")
+    .doc("Order1");
+
+  const acceptClick = () => {
+    docRef
+      .update({
+        accept: true,
+      })
+      .then(() => {
+        myAlert(true);
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
   };
-  console.log(toggle1);
+
+  const declineClick = () => {
+    docRef
+      .update({
+        decline: true,
+        accept: false,
+      })
+      .then(() => {
+        console.log("Decline Successfully");
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  };
+
   return (
     <div
       className="card-request d-flex py-3  "
@@ -69,22 +106,36 @@ function RequestCard({ User, toggles }) {
           <Button
             variant="info"
             className="px-4"
-            onClick={() => handleToggle()}
+            onClick={() => setToggle(!toggle)}
           >
             View <GeoAlt style={{ fontSize: "22px" }} />
           </Button>
         </div>
 
-        <div style={{ paddingLeft: "2em" }}>
-          <Button variant="success" className="px-4">
-            Accept <Check2Circle style={{ fontSize: "22px" }} />{" "}
-          </Button>
-        </div>
-        <div style={{ paddingLeft: "2em" }}>
-          <Button variant="danger" className="px-4">
-            Decline <Trash style={{ fontSize: "22px" }} />{" "}
-          </Button>
-        </div>
+        {User.accept === true ? null : (
+          <div style={{ paddingLeft: "2em" }}>
+            <Button
+              variant="success"
+              className="px-4"
+              onClick={() => acceptClick()}
+            >
+              Accept <Check2Circle style={{ fontSize: "22px" }} />{" "}
+            </Button>
+          </div>
+        )}
+        {User.decline == true ? (
+          <p style={{ fontSize: "22px", color: "red" }}>Cancelled</p>
+        ) : (
+          <div style={{ paddingLeft: "2em" }}>
+            <Button
+              variant="danger"
+              className="px-4"
+              onClick={() => declineClick()}
+            >
+              Decline <Trash style={{ fontSize: "22px" }} />{" "}
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

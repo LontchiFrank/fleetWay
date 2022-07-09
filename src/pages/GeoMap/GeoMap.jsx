@@ -47,7 +47,7 @@ function GeoMap({ latitudes, longitudes }) {
 
   return (
     <div>
-      <input onChange={uploadFile} type={"file"}></input>
+      {/* <input onChange={uploadFile} type={"file"}></input> */}
       <Map
         location={location}
         zoomLevel={zoomLevel}
