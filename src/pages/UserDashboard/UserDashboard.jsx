@@ -53,7 +53,7 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
       });
   }, []);
   console.log(currentUser);
-  const newDataObj = { destination, locate, price, date, time };
+  const newDataObj = { currentUser, destination, locate, price, date, time };
 
   const onchange = (e) => {
     setOrder({ ...order, [e.target.name]: e.target.value });
