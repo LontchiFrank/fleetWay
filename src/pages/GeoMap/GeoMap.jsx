@@ -8,6 +8,10 @@ const init_location = {
   lat: 4.155966,
 };
 
+//University of Buea Cordinates
+// lng: 9.287037,
+//   lat: 4.148809,
+
 function GeoMap({ latitudes, longitudes }) {
   const [location, setlocation] = useState(init_location);
   const [driver, setdriver] = useState(init_location);
