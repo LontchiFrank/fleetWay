@@ -6,6 +6,7 @@ import { useLottie } from "lottie-react";
 import GeoMap from "../../pages/GeoMap/GeoMap";
 import groovyWalkAnimation from "../../animations/109616-girl-happy-to-get-fund.json";
 import LyftRequestCard from "../LyftRequest";
+import { CDBSpinner, CDBContainer } from "cdbreact";
 import IncomingRequest from "../ComingRequest";
 
 function DriverHistory() {
@@ -71,14 +72,31 @@ function DriverHistory() {
                   className="firstpart mx-3"
                   style={{ width: "65%", height: "100%" }}
                 >
-                  {user.map((el, key) => (
-                    <LyftRequestCard
-                      key={key}
-                      User={el}
-                      toggle={toggle}
-                      setToggle={setToggle}
-                    />
-                  ))}
+                  {user.length != 0 ? (
+                    user.map((el, key) => (
+                      <LyftRequestCard
+                        key={key}
+                        User={el}
+                        toggle={toggle}
+                        setToggle={setToggle}
+                      />
+                    ))
+                  ) : (
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "100vh",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <CDBContainer>
+                        <CDBSpinner multicolor />
+                      </CDBContainer>
+                    </div>
+                  )}
+
                   {toggle ? (
                     <div
                       style={{

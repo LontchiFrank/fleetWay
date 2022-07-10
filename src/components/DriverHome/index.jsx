@@ -4,6 +4,7 @@ import Sidebar from "../Sidebar";
 import firebase from "firebase";
 import RequestCard from "../RequestCard";
 import GeoMap from "../../pages/GeoMap/GeoMap";
+import { CDBSpinner, CDBContainer } from "cdbreact";
 
 function DriverHome() {
   const ref = firebase.firestore();
@@ -58,14 +59,30 @@ function DriverHome() {
                 <h2>User Request</h2>
               </div>
               <div className="body-request">
-                {user.map((el, key) => (
-                  <RequestCard
-                    key={key}
-                    User={el}
-                    toggle={toggle}
-                    setToggle={setToggle}
-                  />
-                ))}
+                {user.length != 0 ? (
+                  user.map((el, key) => (
+                    <RequestCard
+                      key={key}
+                      User={el}
+                      toggle={toggle}
+                      setToggle={setToggle}
+                    />
+                  ))
+                ) : (
+                  <div
+                    style={{
+                      width: "100vw",
+                      height: "100vh",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <CDBContainer>
+                      <CDBSpinner multicolor />
+                    </CDBContainer>
+                  </div>
+                )}
                 {toggle ? (
                   <div
                     style={{
@@ -75,7 +92,7 @@ function DriverHome() {
                       justifyContent: "center",
                     }}
                   >
-                    <div style={{ width: "90%", heigth: "100%" }}>
+                    <div style={{ width: "90%", height: "100%" }}>
                       {" "}
                       <GeoMap />
                     </div>
