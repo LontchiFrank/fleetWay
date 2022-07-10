@@ -91,10 +91,10 @@ function SendingCard({ user }) {
       </div>
       <div className="d-flex flex-column " style={{ paddingLeft: "3em" }}>
         <p className="m-0">Status:</p>
-        {driver.accept == true ? (
+        {driver && driver.accept == true ? (
           <p style={{ fontSize: "16px", color: "green" }}>Approved</p>
         ) : null}
-        {driver.decline == true ? (
+        {driver && driver.decline == true ? (
           <p style={{ fontSize: "16px", color: "red" }}>Declined</p>
         ) : null}
       </div>

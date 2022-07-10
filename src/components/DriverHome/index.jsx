@@ -58,7 +58,7 @@ function DriverHome() {
               <div className="header-request">
                 <h2>User Request</h2>
               </div>
-              <div className="body-request">
+              <div className="body-request d-flex flex-column">
                 {user.length != 0 ? (
                   user.map((el, key) => (
                     <RequestCard

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import brand from "../../styles/assets/brand.jpg";
 import { Button, Card, Form, Row, Col, Modal } from "react-bootstrap";
 import {
+  GeoAlt,
   GeoAltFill,
   Phone,
   ThreeDotsVertical,
@@ -16,10 +17,13 @@ import { getDrivers } from "../../redux/actions/driverAction";
 import GeoMap from "../GeoMap/GeoMap";
 import { Link, useNavigate } from "react-router-dom";
 import { myAlert } from "../../components/myAlert";
+import { CDBSpinner, CDBContainer } from "cdbreact";
+import UserNavbar from "../../components/Layout/UserNavbar";
 
 function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
   const [back, setBack] = useState(true);
   const [currentUser, setCurrentUser] = useState();
+  const [geo, setGeo] = useState();
   const [order, setOrder] = useState({
     destination: "",
     locate: "",
@@ -46,6 +50,11 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
   // console.log(user.uid);
 
   var docRef = ref.collection("Users").doc("A2zYqv504kxTf6kxG55W");
+  var docRef1 = ref
+    .collection("Drivers")
+    .doc("Driver 1")
+    .collection("Order2")
+    .doc("Order2");
 
   useEffect(() => {
     docRef
@@ -59,7 +68,21 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
+
+    docRef1
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+          setGeo(doc.data());
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
   }, []);
+  console.log(geo);
+
   console.log(currentUser);
   const newDataObj = { currentUser, destination, locate, price, date, time };
   const newDataObj1 = { currentUser, destinations, locates, prices, times };
@@ -98,7 +121,7 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
         navigate("/lyft-track");
       });
   };
-
+  const actualSets = 4 - geo && geo.seats;
   return (
     <Modal
       show={show}
@@ -313,6 +336,15 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
             </div>
           )}
         </div>
+        <p className="d-flex m-0">
+          Destinations:{" "}
+          <p className="fs-5 p-0 mx-2">
+            {geo && geo.destinations} <GeoAlt />
+          </p>{" "}
+        </p>
+        <p className="d-flex m-0">
+          Available Seats:<p className="fs-5 p-0 mx-2"> {actualSets}</p>
+        </p>
       </Modal.Body>
       <Modal.Footer>
         {back ? (
@@ -335,6 +367,7 @@ function UserDashboard() {
   const [longitude, setLongitude] = useState("");
   const [latitude, setLatitude] = useState("");
   const [back, setBack] = useState(true);
+  const [geo, setGeo] = useState();
   const [data, setData] = useState([]);
   const toggle = () => {
     setBack(!back);
@@ -344,7 +377,12 @@ function UserDashboard() {
   const driver = useSelector(({ driver }) => driver?.driver);
   // console.log(driver);
   const ref = firebase.firestore().collection("Drivers");
-
+  const ref1 = firebase.firestore();
+  var docRef1 = ref1
+    .collection("Drivers")
+    .doc("Driver 1")
+    .collection("Order2")
+    .doc("Order2");
   useEffect(() => {
     ref.get().then((item) => {
       const items = item.docs.map((doc) => doc.data());
@@ -352,14 +390,25 @@ function UserDashboard() {
     });
 
     dispatch(getDrivers(data));
-    console.log(data);
-  }, []);
 
-  // useEffect(() => {
-  //   console.log(longitude, "modalShow");
-  // }, [longitude]);
+    docRef1
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+          setGeo(doc.data());
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  }, []);
+  console.log(geo);
+
+  // const actualSeats = 4 - geo.seats;
+
   return (
-    <UserLayout>
+    <UserNavbar>
       <MyVerticallyCenteredModal
         show={modalShow}
         setModalShow={setModalShow}
@@ -505,87 +554,117 @@ function UserDashboard() {
                       </Row>
                     </Form>
                   </div>
-                  {data
-                    .filter((user) => user.distance == "near")
-                    .map((filteredUser, key) => (
-                      <Card
-                        key={key}
-                        border="light"
-                        style={{
-                          marginLeft: "1em",
-                          marginTop: "2em",
-                          width: "18rem",
-                          boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
-                        }}
-                        className="col-md-12 col-sm-12"
-                      >
-                        <Card.Header className="d-flex">
-                          <div
-                            className="d-flex justify-content-center align-items-center"
-                            style={{ width: "95%", height: "100%" }}
-                          >
+                  {data != 0 ? (
+                    data
+                      .filter((user) => user.distance == "near")
+                      .map((filteredUser, key) => (
+                        <Card
+                          key={key}
+                          border="light"
+                          style={{
+                            marginLeft: "1em",
+                            marginTop: "2em",
+                            width: "18rem",
+                            boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
+                          }}
+                          className="col-md-12 col-sm-12"
+                        >
+                          <Card.Header className="d-flex">
                             <div
-                              className="icon-profile"
-                              style={{
-                                width: "70px",
-                                height: "65px",
-                                borderRadius: "50%",
-                                background: "green",
-                              }}
+                              className="d-flex justify-content-center align-items-center"
+                              style={{ width: "95%", height: "100%" }}
                             >
-                              <img
-                                src={brand}
-                                alt=""
+                              <div
+                                className="icon-profile"
                                 style={{
-                                  width: "100%",
-                                  height: "100%",
+                                  width: "70px",
+                                  height: "65px",
                                   borderRadius: "50%",
+                                  background: "green",
+                                }}
+                              >
+                                <img
+                                  src={brand}
+                                  alt=""
+                                  style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    borderRadius: "50%",
+                                  }}
+                                />
+                              </div>
+                            </div>
+                            <div
+                              className=""
+                              style={{ width: "5%", height: "100%" }}
+                            >
+                              <ThreeDotsVertical style={{ fontSize: "22px" }} />
+                            </div>
+                          </Card.Header>
+                          <Card.Body>
+                            <Card.Title className="fw-bold ">
+                              {" "}
+                              <p className="text-center fw-normal">
+                                {filteredUser.Name}{" "}
+                              </p>
+                            </Card.Title>
+                            <Card.Text className="d-flex flex-column justify-content-center align-items-center">
+                              <Wifi
+                                style={{
+                                  fontSize: "19px",
+                                  textAlign: "center",
+                                  color: "green",
                                 }}
                               />
+                              <p>Online</p>
+                            </Card.Text>
+                            <div
+                              className="d-flex justify-content-between"
+                              style={{ width: "100%" }}
+                            >
+                              <p>
+                                Available seats:
+                                <p className="m-0 fw-bold fs-4">
+                                  {4 - geo?.seats}
+                                </p>{" "}
+                              </p>
+                              <span class="alert alert-warning" role="alert">
+                                {filteredUser.cat}
+                              </span>
                             </div>
-                          </div>
-                          <div
-                            className=""
-                            style={{ width: "5%", height: "100%" }}
-                          >
-                            <ThreeDotsVertical style={{ fontSize: "22px" }} />
-                          </div>
-                        </Card.Header>
-                        <Card.Body>
-                          <Card.Title className="fw-bold ">
-                            {" "}
-                            <p className="text-center fw-normal">
-                              {filteredUser.Name}{" "}
-                            </p>
-                          </Card.Title>
-                          <Card.Text className="d-flex flex-column justify-content-center align-items-center">
-                            <Wifi
-                              style={{
-                                fontSize: "19px",
-                                textAlign: "center",
-                                color: "green",
+                          </Card.Body>
+                          <div className="px-4 pb-4 d-flex flex-column justify-content-center align-items-center">
+                            <Button
+                              variant="warning"
+                              className="col-md-12"
+                              style={{ color: "white" }}
+                              onClick={() => {
+                                setModalShow(true);
+                                setLongitude(filteredUser.lng);
+                                setLatitude(filteredUser.lat);
                               }}
-                            />
-                            <p>Online</p>
-                          </Card.Text>
-                        </Card.Body>
-                        <div className="px-4 pb-4 d-flex flex-column justify-content-center align-items-center">
-                          <Button
-                            variant="warning"
-                            className="col-md-12"
-                            style={{ color: "white" }}
-                            onClick={() => {
-                              setModalShow(true);
-                              setLongitude(filteredUser.lng);
-                              setLatitude(filteredUser.lat);
-                            }}
-                          >
-                            {" "}
-                            Hire
-                          </Button>
-                        </div>
-                      </Card>
-                    ))}
+                            >
+                              {" "}
+                              Hire
+                            </Button>
+                          </div>
+                        </Card>
+                      ))
+                  ) : (
+                    <div
+                      style={{
+                        width: "100vw",
+                        height: "100vh",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <CDBContainer>
+                        <CDBSpinner multicolor />
+                      </CDBContainer>
+                    </div>
+                  )}
                 </div>
               </div>
             ) : (
@@ -720,7 +799,7 @@ function UserDashboard() {
         </div>
       </div>
       {/* <div className={`${styles.box3}`}></div> */}
-    </UserLayout>
+    </UserNavbar>
   );
 }
 
