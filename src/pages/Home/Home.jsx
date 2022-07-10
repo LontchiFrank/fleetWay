@@ -118,7 +118,7 @@ function Home() {
                   onClick={() => toggle()}
                 >
                   {" "}
-                  <h5>Trip Package</h5>
+                  <h5>Book Trip </h5>
                 </div>
               </div>
 

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import brand from "../../styles/assets/brand.jpg";
 import { Button, Card, Form, Row, Col, Modal } from "react-bootstrap";
 import {
+  Eye,
   GeoAlt,
   GeoAltFill,
   Phone,
@@ -343,10 +344,13 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
           </p>{" "}
         </p>
         <p className="d-flex m-0">
-          Available Seats:<p className="fs-5 p-0 mx-2"> {actualSets}</p>
+          Available Seats:<p className="fs-5 p-0 mx-2"> {4 - geo?.seats}</p>
         </p>
       </Modal.Body>
       <Modal.Footer>
+        <Button variant="info">
+          View <Eye />{" "}
+        </Button>
         {back ? (
           <Button variant="warning" onClick={(e) => onsubmit(e)}>
             Hire Taxi
@@ -532,15 +536,17 @@ function UserDashboard() {
                         <Col md="6">
                           <Form.Group controlId="exampleForm.ControlInput1">
                             <Form.Control
-                              type="email"
-                              placeholder="name@example.com"
+                              type="text"
+                              placeholder="Enter Driver's Name"
                             />
                           </Form.Group>
                         </Col>
 
                         <Col md="3">
                           <Form.Select>
-                            <option>Default select</option>
+                            <option>Choose...</option>
+                            <option>High</option>
+                            <option>Low</option>
                           </Form.Select>
                         </Col>
                         <Button
