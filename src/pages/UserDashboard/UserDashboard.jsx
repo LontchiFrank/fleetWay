@@ -349,7 +349,12 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="info">
-          View <Eye />{" "}
+          <Link
+            to="/viewcar"
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            View <Eye />{" "}
+          </Link>
         </Button>
         {back ? (
           <Button variant="warning" onClick={(e) => onsubmit(e)}>
@@ -360,7 +365,9 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
             Hire Taxi
           </Button>
         )}
-        <Button onClick={() => setModalShow(false)}>Cancel</Button>
+        <Button variant="danger" onClick={() => setModalShow(false)}>
+          Cancel
+        </Button>
       </Modal.Footer>
     </Modal>
   );
