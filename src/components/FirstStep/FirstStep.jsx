@@ -52,7 +52,7 @@ function FirstStep() {
             <Form.Control
               type="email"
               placeholder="Enter email"
-              value={currentUser && currentUser.email}
+              // value={currentUser && currentUser.email}
               disabled
             />
             <Form.Text className="text-muted">
