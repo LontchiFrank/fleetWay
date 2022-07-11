@@ -20,6 +20,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { myAlert } from "../../components/myAlert";
 import { CDBSpinner, CDBContainer } from "cdbreact";
 import UserNavbar from "../../components/Layout/UserNavbar";
+import Notify from "../../components/Notify";
 
 function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
   const [back, setBack] = useState(true);
@@ -407,6 +408,7 @@ function UserDashboard() {
       .then((doc) => {
         if (doc.exists) {
           console.log("Document data:", doc.data());
+          <Notify set={true} />;
           setGeo(doc.data());
         }
       })
