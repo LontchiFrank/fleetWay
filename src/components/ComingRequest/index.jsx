@@ -65,7 +65,7 @@ function IncomingRequest({ user }) {
         <p className="m-0" style={{ color: "#989898", fontSize: "16px" }}>
           Seats:
         </p>
-        <p style={{ fontSize: "16px", color: "#000000" }}>{driver.seats} </p>
+        <p style={{ fontSize: "16px", color: "#000000" }}>{driver?.seats} </p>
       </div>
       <div
         className="name d-flex flex-column justify-content-start "
@@ -74,7 +74,7 @@ function IncomingRequest({ user }) {
         <p className="m-0" style={{ color: "#989898", fontSize: "16px" }}>
           Price:
         </p>
-        <p style={{ fontSize: "16px", color: "#000000" }}>{driver.prices} </p>
+        <p style={{ fontSize: "16px", color: "#000000" }}>{driver?.prices} </p>
       </div>
       <div
         className="name d-flex flex-column justify-content-start "
@@ -98,13 +98,13 @@ function IncomingRequest({ user }) {
         <p className="m-0" style={{ color: "#989898", fontSize: "16px" }}>
           Status:
         </p>
-        {driver.accept == true ? (
+        {driver && driver.accept == true ? (
           <p style={{ fontSize: "16px", color: "green" }}>Approved</p>
         ) : null}
-        {driver.accept == false ? (
+        {driver && driver.accept == false ? (
           <p style={{ fontSize: "16px", color: "orange" }}>Pending</p>
         ) : null}
-        {driver.decline == true ? (
+        {driver && driver.decline == true ? (
           <p style={{ fontSize: "16px", color: "red" }}>Declined</p>
         ) : null}
       </div>

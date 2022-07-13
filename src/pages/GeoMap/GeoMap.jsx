@@ -4,8 +4,8 @@ import app from "../../Firebase";
 import "./GeoMap.css";
 
 const init_location = {
-  lng: 9.263224,
-  lat: 4.155966,
+  lng: 9.287037,
+  lat: 4.148809,
 };
 
 //University of Buea Cordinates

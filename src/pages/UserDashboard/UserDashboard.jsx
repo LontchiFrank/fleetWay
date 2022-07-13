@@ -87,7 +87,14 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
 
   console.log(currentUser);
   const newDataObj = { currentUser, destination, locate, price, date, time };
-  const newDataObj1 = { currentUser, destinations, locates, prices, times };
+  const newDataObj1 = {
+    currentUser,
+    destinations,
+    locates,
+    seats,
+    prices,
+    times,
+  };
 
   const onchange = (e) => {
     setOrder({ ...order, [e.target.name]: e.target.value });
@@ -123,7 +130,8 @@ function MyVerticallyCenteredModal({ show, setModalShow, lati, long }) {
         navigate("/lyft-track");
       });
   };
-  const actualSets = 4 - geo && geo.seats;
+
+  // const actualSets = 4 - geo && geo.seats;
   return (
     <Modal
       show={show}
@@ -380,6 +388,7 @@ function UserDashboard() {
   const [latitude, setLatitude] = useState("");
   const [back, setBack] = useState(true);
   const [geo, setGeo] = useState();
+  const [actual, setActual] = useState(4);
   const [data, setData] = useState([]);
   const toggle = () => {
     setBack(!back);
@@ -417,7 +426,7 @@ function UserDashboard() {
       });
   }, []);
   console.log(geo);
-
+  // console.log(geo.seats);
   // const actualSeats = 4 - geo.seats;
 
   return (
@@ -640,7 +649,10 @@ function UserDashboard() {
                               <p>
                                 Available seats:
                                 <p className="m-0 fw-bold fs-4">
-                                  {4 - geo?.seats}
+                                  {/* {4 - geo?.seats} */}
+                                  {actual - geo?.seats !== NaN
+                                    ? actual - geo?.seats
+                                    : actual}
                                 </p>{" "}
                               </p>
                               <span class="alert alert-warning" role="alert">

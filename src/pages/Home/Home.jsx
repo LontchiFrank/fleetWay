@@ -83,7 +83,7 @@ function Home() {
                   src={taxi}
                   alt=""
                   className={`${styles.img1_cont}`}
-                  style={{ width: "100%", height: "50%" }}
+                  style={{ width: "100%" }}
                 />
               </div>
             </div>
